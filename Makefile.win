@@ -1,0 +1,46 @@
+# Project: PolaWektorowe
+# Compiler: Default GCC compiler
+# Compiler Type: MingW 3
+# Makefile created by wxDev-C++ IDE 7.4.2.569 on 02/12/15 21:33
+
+WXLIBNAME = wxmsw29u
+CPP       = g++.exe
+CC        = gcc.exe
+WINDRES   = "windres.exe"
+OBJ       = Objects/MingW/PolaWektoroweApp.o Objects/MingW/PolaWektoroweFrm.o Objects/MingW/PolaWektorowe_private.res
+LINKOBJ   = "Objects/MingW/PolaWektoroweApp.o" "Objects/MingW/PolaWektoroweFrm.o" Objects/MingW/PolaWektorowe_private.res
+LIBS      = -L"D:/wxdev/lib/wx/gcc_lib" -L"D:/wxdev/lib" -L"D:/wxdev/MinGW32/lib" -mwindows -l$(WXLIBNAME) -l$(WXLIBNAME)_gl -lwxscintilla -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregexu -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 -lopengl32  
+INCS      = -I"D:/wxdev/MinGW32/include"
+CXXINCS   = -I"D:/wxdev/MinGW32/include" -I"D:/wxdev/" -I"D:/wxdev/include/common"
+RCINCS    = --include-dir "D:/wxdev/include/common"
+BIN       = Output/MingW/PolaWektorowe.exe
+DEFINES   = -D__WXMSW__ -D__GNUWIN32__ -D_UNICODE
+CXXFLAGS  = $(CXXINCS) $(DEFINES)  
+CFLAGS    = $(INCS) $(DEFINES)  
+GPROF     = gprof.exe
+ifeq ($(OS),Windows_NT)
+   RM = del /Q
+   FixPath = $(subst /,\,$1)
+else
+   RM = rm -f
+   FixPath = $1
+endif
+LINK      = g++.exe
+
+.PHONY: all all-before all-after clean clean-custom
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	$(RM) $(call FixPath,$(LINKOBJ)) "$(call FixPath,$(BIN))"
+
+$(BIN): $(OBJ)
+	$(LINK) $(LINKOBJ) -o "$(BIN)" $(LIBS) 
+
+Objects/MingW/PolaWektoroweApp.o: $(GLOBALDEPS) PolaWektoroweApp.cpp PolaWektoroweApp.h PolaWektoroweFrm.h
+	$(CPP) -c PolaWektoroweApp.cpp -o Objects/MingW/PolaWektoroweApp.o $(CXXFLAGS)
+
+Objects/MingW/PolaWektoroweFrm.o: $(GLOBALDEPS) PolaWektoroweFrm.cpp PolaWektoroweFrm.h
+	$(CPP) -c PolaWektoroweFrm.cpp -o Objects/MingW/PolaWektoroweFrm.o $(CXXFLAGS)
+
+Objects/MingW/PolaWektorowe_private.res: Objects/MingW/PolaWektorowe_private.rc PolaWektoroweApp.rc 
+	$(WINDRES) --input-format=rc -o Objects/MingW/PolaWektorowe_private.res $(RCINCS) Objects/MingW/POLAWE~1.RC -O coff
