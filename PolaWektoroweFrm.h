@@ -26,19 +26,19 @@
 //Header Include Start and Header Include End.
 //wxDev-C++ designer will remove them. Add custom headers after the block.
 ////Header Include Start
+#include <wx/panel.h>
 #include <wx/button.h>
 #include <wx/checkbox.h>
 #include <wx/textctrl.h>
 #include <wx/scrolbar.h>
 #include <wx/stattext.h>
 #include <wx/tglbtn.h>
-#include <wx/panel.h>
 #include <wx/sizer.h>
 ////Header Include End
 
 ////Dialog Style Start
 #undef PolaWektoroweFrm_STYLE
-#define PolaWektoroweFrm_STYLE wxCAPTION | wxRESIZE_BORDER | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxCLOSE_BOX
+#define PolaWektoroweFrm_STYLE wxCAPTION | wxRESIZE_BORDER | wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxCLOSE_BOX | wxMAXIMIZE
 ////Dialog Style End
 
 class PolaWektoroweFrm : public wxFrame
@@ -55,6 +55,7 @@ class PolaWektoroweFrm : public wxFrame
 		//GUI Control Declaration Start and GUI Control Declaration End.
 		//wxDev-C++ will remove them. Add custom code after the block.
 		////GUI Control Declaration Start
+		wxPanel *PicPlace;
 		wxTextCtrl *WxEdit15;
 		wxStaticText *WxStaticText21;
 		wxTextCtrl *WxEdit14;
@@ -83,32 +84,32 @@ class PolaWektoroweFrm : public wxFrame
 		wxStaticText *WxStaticText14;
 		wxTextCtrl *WxEdit7;
 		wxStaticText *WxStaticText13;
+		wxBoxSizer *WxBoxSizer8;
 		wxTextCtrl *WxEdit6;
 		wxStaticText *WxStaticText12;
 		wxTextCtrl *WxEdit5;
 		wxStaticText *WxStaticText11;
 		wxTextCtrl *WxEdit4;
 		wxStaticText *WxStaticText10;
+		wxBoxSizer *WxBoxSizer7;
 		wxTextCtrl *WxEdit3;
 		wxStaticText *WxStaticText9;
 		wxTextCtrl *WxEdit2;
 		wxStaticText *WxStaticText8;
 		wxTextCtrl *WxEdit1;
 		wxStaticText *WxStaticText7;
-		wxBoxSizer *WxBoxSizer8;
-		wxBoxSizer *WxBoxSizer7;
 		wxBoxSizer *WxBoxSizer6;
 		wxStaticText *WxStaticText6;
 		wxScrollBar *WxScrollBar3;
 		wxStaticText *WxStaticText5;
+		wxBoxSizer *WxBoxSizer5;
 		wxStaticText *WxStaticText4;
 		wxScrollBar *WxScrollBar2;
 		wxStaticText *WxStaticText3;
+		wxBoxSizer *WxBoxSizer4;
 		wxStaticText *WxStaticText2;
 		wxScrollBar *WxScrollBar1;
 		wxStaticText *WxStaticText1;
-		wxBoxSizer *WxBoxSizer5;
-		wxBoxSizer *WxBoxSizer4;
 		wxBoxSizer *WxBoxSizer3;
 		wxToggleButton *WxToggleButton4;
 		wxToggleButton *WxToggleButton3;
@@ -116,7 +117,7 @@ class PolaWektoroweFrm : public wxFrame
 		wxToggleButton *WxToggleButton1;
 		wxStaticBoxSizer *WxStaticBoxSizer1;
 		wxBoxSizer *WxBoxSizer2;
-		wxPanel *WxPanel1;
+		wxBoxSizer *WxBoxSizer14;
 		wxBoxSizer *WxBoxSizer1;
 		////GUI Control Declaration End
 		
@@ -128,6 +129,7 @@ class PolaWektoroweFrm : public wxFrame
 		enum
 		{
 			////GUI Enum Control ID Start
+			ID_PICPLACE = 1068,
 			ID_WXEDIT15 = 1066,
 			ID_WXSTATICTEXT21 = 1065,
 			ID_WXEDIT14 = 1064,
@@ -176,7 +178,6 @@ class PolaWektoroweFrm : public wxFrame
 			ID_WXTOGGLEBUTTON3 = 1007,
 			ID_WXTOGGLEBUTTON2 = 1006,
 			ID_WXTOGGLEBUTTON1 = 1005,
-			ID_WXPANEL1 = 1002,
 			////GUI Enum Control ID End
 			ID_DUMMY_VALUE_ //don't remove this value unless you have other enum values
 		};
