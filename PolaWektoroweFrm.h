@@ -38,7 +38,7 @@
 
 ////Dialog Style Start
 #undef PolaWektoroweFrm_STYLE
-#define PolaWektoroweFrm_STYLE wxCAPTION | wxRESIZE_BORDER | wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxCLOSE_BOX | wxMAXIMIZE
+#define PolaWektoroweFrm_STYLE wxFULL_REPAINT_ON_RESIZE | wxCAPTION | wxRESIZE_BORDER | wxSYSTEM_MENU | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxCLOSE_BOX
 ////Dialog Style End
 
 class PolaWektoroweFrm : public wxFrame

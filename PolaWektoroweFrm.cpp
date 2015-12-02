@@ -255,6 +255,8 @@ void PolaWektoroweFrm::CreateGUIControls()
 	Center();
 	
 	////GUI Items Creation End
+	//Fullscreen tu instrukcja :http://docs.wxwidgets.org/trunk/toplevel_8h.html#afccd240f973cf154952fb917c9209719a4625145320cb6292879930fddaec9846
+	//wxFrame::ShowFullScreen(true,wxFULLSCREEN_NOTOOLBAR );
 }
 
 void PolaWektoroweFrm::OnClose(wxCloseEvent& event)
