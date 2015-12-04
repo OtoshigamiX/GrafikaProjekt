@@ -6,6 +6,8 @@
 /**
 **klasa reprezentujacd wektor 3D doubli
 **
+**    !!!WARNING!!! pamietac, ze jak bedziemy robic wektory jednostkowe to przemnazac trzeba bedzie tylko koniec bez poczatku wiec trzeba beczie dodac funkcje mnozaca tylko koniec wektora
+**    TODO: Nakladka na wxWidgets z rysowaniem zeby nie trzeba bylo wklepywac wszystkich koordynantow, tylko zeby wystarczylo wklepac : Line(vec1, color blue);
 **/
 class Vector3d{
 public:
