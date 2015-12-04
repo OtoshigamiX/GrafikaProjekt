@@ -32,8 +32,8 @@ bool  Vector3d::isOk(){
     return ok;
 }
 
-double  Vector3d::DiffLength(){
-    return maxVec(this)-minVec(this);
+double  Vector3d::DiffLength(Vector3d vec[],int len){
+    return maxVec(vec,len )-minVec(vec,len);
 }
 double  Vector3d::Length(){
     return (sqrt(pow(getKX()-getPX(),2)+pow(getKY()-getPY(),2)+pow(getKZ()-getPZ(),2)));
@@ -48,6 +48,7 @@ void  Vector3d::setStart(double x, double y, double z){
 
 void  Vector3d::setEnd(double x, double y, double z){
     cord[4]=x; cord[5]=y; cord[6]=z;
+    ok=true;
 }
 
 bool  Vector3d::getStart(double boom[3]){
@@ -56,21 +57,24 @@ bool  Vector3d::getStart(double boom[3]){
 }
 
 bool  Vector3d::getEnd(double boom[3]){
+    if(ok){
      boom[3]=cord[4]; boom[4]=cord[5]; boom[5]=cord[6];
     return true;
+    }
+    return false;
 }
 
-double  Vector3d::maxVec(Vector3d vec[]){
+double  Vector3d::maxVec(Vector3d vec[],int len){
     double max= vec[0].Length();
-    for(int i=0;i <(sizeof(vec)/sizeof(vec[0]));i++){
+    for(int i=1;i <len;i++){
         if(max <vec[i].Length()) max =vec[i].Length();
     }
     return max;
 }
 
-double  Vector3d::minVec(Vector3d vec[]){
+double  Vector3d::minVec(Vector3d vec[],int len){
     double min= vec[0].Length();
-    for(int i=0;i <(sizeof(vec)/sizeof(vec[0]));i++){
+    for(int i=1;i <len);i++){
         if(min > vec[i].Length()) min =vec[i].Length();
     }
     return min;

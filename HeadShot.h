@@ -23,7 +23,7 @@ public:
     //zwraca dlugosc wektora
     double Length();
     //zwraca roznice miedzy najdluzszym i najkrotszym wektorem
-    double DiffLength();
+    double DiffLength(Vector3d vec[],int len);
     //wypisuje wektor
     void Print();
     //ustawia wartosc poczatku wektora
@@ -52,9 +52,9 @@ private:
     //okresla czy wektor jest kompletny
     bool ok;
     //zwraca dlugosc najdluzszego wektora
-    static double maxVec(Vector3d vec[]);
+    static double maxVec(Vector3d vec[],int len);
     //zwraca dlugosc najkrotszego wektora
-    static double minVec(Vector3d vec[]);
+    static double minVec(Vector3d vec[],int len);
 
 };
 
