@@ -1,7 +1,7 @@
 [Project]
 FileName=PolaWektorowe.dev
 Name=PolaWektorowe
-UnitCount=8
+UnitCount=9
 PchHead=-1
 PchSource=-1
 Ver=3
@@ -155,6 +155,16 @@ BuildCmd=
 
 [Unit8]
 FileName=HeadShot.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit9]
+FileName=Boom.h
 CompileCpp=1
 Folder=
 Compile=1

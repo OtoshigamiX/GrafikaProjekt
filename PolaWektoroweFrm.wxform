@@ -57,7 +57,7 @@ object frmNewForm: TfrmNewForm
       Wx_StretchFactor = 1
       object PicPlace: TWxPanel
         Left = 5
-        Top = 5
+        Top = 4
         Width = 185
         Height = 41
         TabOrder = 0

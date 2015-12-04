@@ -9,7 +9,6 @@
 ///------------------------------------------------------------------
 
 #include "PolaWektoroweFrm.h"
-
 //Do not add custom headers between
 //Header Include Start and Header Include End
 //wxDev-C++ designer will remove them
@@ -24,6 +23,7 @@
 ////Event Table Start
 BEGIN_EVENT_TABLE(PolaWektoroweFrm,wxFrame)
 	////Manual Code Start
+	EVT_PAINT(PolaWektoroweFrm::Rysuj)
 	////Manual Code End
 	
 	EVT_CLOSE(PolaWektoroweFrm::OnClose)
@@ -54,6 +54,9 @@ void PolaWektoroweFrm::CreateGUIControls()
 
 	WxBoxSizer14 = new wxBoxSizer(wxHORIZONTAL);
 	WxBoxSizer1->Add(WxBoxSizer14, 1, wxALIGN_CENTER | wxEXPAND | wxALL, 5);
+
+	PicPlace = new wxPanel(this, ID_PICPLACE, wxPoint(5, 4), wxSize(185, 41));
+	WxBoxSizer14->Add(PicPlace, 1, wxALIGN_CENTER | wxEXPAND | wxALL, 5);
 
 	WxBoxSizer2 = new wxBoxSizer(wxVERTICAL);
 	WxBoxSizer1->Add(WxBoxSizer2, 0, wxALIGN_RIGHT | wxALL, 5);
@@ -243,9 +246,6 @@ void PolaWektoroweFrm::CreateGUIControls()
 	WxEdit15 = new wxTextCtrl(this, ID_WXEDIT15, _("WxEdit15"), wxPoint(316, 5), wxSize(52, 22), 0, wxDefaultValidator, _("WxEdit15"));
 	WxBoxSizer13->Add(WxEdit15, 0, wxALIGN_CENTER | wxALL, 5);
 
-	PicPlace = new wxPanel(this, ID_PICPLACE, wxPoint(5, 5), wxSize(185, 41));
-	WxBoxSizer14->Add(PicPlace, 1, wxALIGN_CENTER | wxEXPAND | wxALL, 5);
-
 	SetTitle(_("PolaWektorowe"));
 	SetIcon(wxNullIcon);
 	
@@ -258,8 +258,27 @@ void PolaWektoroweFrm::CreateGUIControls()
 	//Fullscreen tu instrukcja :http://docs.wxwidgets.org/trunk/toplevel_8h.html#afccd240f973cf154952fb917c9209719a4625145320cb6292879930fddaec9846
 	//wxFrame::ShowFullScreen(true,wxFULLSCREEN_NOTOOLBAR );
 }
-
+////////////////////////////////////////////////////////////Program wlasciwy////////////////////////////////////////////////////////////////////////////////////
 void PolaWektoroweFrm::OnClose(wxCloseEvent& event)
 {
 	Destroy();
+}
+void PolaWektoroweFrm::Rysuj(wxPaintEvent& event) 
+{
+    Matrix4 mat;//mozna dodac w jakiej klasie sotrage
+    
+    wxClientDC clientDC(PicPlace);
+    wxBufferedDC dc(&clientDC);
+    int w,h;
+ 
+    PicPlace->GetSize(&w,&h);
+    dc.SetBackground(wxBrush(RGB(255,255,255)));
+    dc.Clear();
+    
+    Vector3d test1(20,30,1,12,24,100);
+    Vector3d test2(50,50,1,400,350,4);
+    //argumenty (wxDC,Vector3d,R,G,B,Matrix4)
+    boomLine(dc,test2,255,0,0,mat);
+    dc.SetPen(wxPen(RGB(0,255,0),1,wxPENSTYLE_SOLID));
+    dc.DrawLine(40,40,390,340);
 }

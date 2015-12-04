@@ -2,13 +2,30 @@
 #define HEADSHOT_H
 #include <stdio.h>
 #include <iostream>
-#include <math.h>   
+#include <math.h>  
+
+#ifndef WX_PRECOMP
+	#include <wx/wx.h>
+	#include <wx/frame.h>
+#else
+	#include <wx/wxprec.h>
+#endif
+#include <wx/panel.h>
+#include <wx/button.h>
+#include <wx/checkbox.h>
+#include <wx/textctrl.h>
+#include <wx/scrolbar.h>
+#include <wx/stattext.h>
+#include <wx/tglbtn.h>
+#include <wx/sizer.h>
+#include <wx/colour.h> 
 /**
 **klasa reprezentujacd wektor 3D doubli
 **
 **    !!!WARNING!!! pamietac, ze jak bedziemy robic wektory jednostkowe to przemnazac trzeba bedzie tylko koniec bez poczatku wiec trzeba beczie dodac funkcje mnozaca tylko koniec wektora
 **    TODO: Nakladka na wxWidgets z rysowaniem zeby nie trzeba bylo wklepywac wszystkich koordynantow, tylko zeby wystarczylo wklepac : Line(vec1, color blue);
 **/
+class Matrix4;
 class Vector3d{
 public:
     //konstruktory
@@ -19,7 +36,7 @@ public:
     //funkcje
     
     //zwraca wspolrzedne w 2D
-    bool get2D(double tab[4]);
+    bool get2D(wxDC &dc, double tab[4],Matrix4 mat);
     // zwraca wartosc ok
     bool isOk();
     //zwraca dlugosc wektora
@@ -106,6 +123,7 @@ public:
     
      for (i=0;i<4;i++)
       {
+      tmp.set(i,0.0);
        for (j=0;j<4;j++){
              tmp.set(i,tmp.get(i)+(this->data[i][j]*gVector.get(j)));
              tmp.set(i+4,tmp.get(i+4)+(this->data[i][j]*gVector.get(j+4)));
@@ -115,4 +133,5 @@ public:
     }
 };
 ///////////////////////////////////////////////////////////////////////////////////////
+
 #endif

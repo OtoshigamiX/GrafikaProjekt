@@ -21,19 +21,20 @@
 #else
 	#include <wx/wxprec.h>
 #endif
-
+#include "Boom.h"
 //Do not add custom headers between 
 //Header Include Start and Header Include End.
 //wxDev-C++ designer will remove them. Add custom headers after the block.
 ////Header Include Start
-#include <wx/panel.h>
 #include <wx/button.h>
 #include <wx/checkbox.h>
 #include <wx/textctrl.h>
 #include <wx/scrolbar.h>
 #include <wx/stattext.h>
 #include <wx/tglbtn.h>
+#include <wx/panel.h>
 #include <wx/sizer.h>
+#include <wx/dcbuffer.h>
 ////Header Include End
 
 ////Dialog Style Start
@@ -49,13 +50,13 @@ class PolaWektoroweFrm : public wxFrame
 	public:
 		PolaWektoroweFrm(wxWindow *parent, wxWindowID id = 1, const wxString &title = wxT("PolaWektorowe"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = PolaWektoroweFrm_STYLE);
 		virtual ~PolaWektoroweFrm();
+		void Rysuj(wxPaintEvent& event);
 		
 	private:
 		//Do not add custom control declarations between
 		//GUI Control Declaration Start and GUI Control Declaration End.
 		//wxDev-C++ will remove them. Add custom code after the block.
 		////GUI Control Declaration Start
-		wxPanel *PicPlace;
 		wxTextCtrl *WxEdit15;
 		wxStaticText *WxStaticText21;
 		wxTextCtrl *WxEdit14;
@@ -117,6 +118,7 @@ class PolaWektoroweFrm : public wxFrame
 		wxToggleButton *WxToggleButton1;
 		wxStaticBoxSizer *WxStaticBoxSizer1;
 		wxBoxSizer *WxBoxSizer2;
+		wxPanel *PicPlace;
 		wxBoxSizer *WxBoxSizer14;
 		wxBoxSizer *WxBoxSizer1;
 		////GUI Control Declaration End
@@ -129,7 +131,6 @@ class PolaWektoroweFrm : public wxFrame
 		enum
 		{
 			////GUI Enum Control ID Start
-			ID_PICPLACE = 1068,
 			ID_WXEDIT15 = 1066,
 			ID_WXSTATICTEXT21 = 1065,
 			ID_WXEDIT14 = 1064,
@@ -178,6 +179,7 @@ class PolaWektoroweFrm : public wxFrame
 			ID_WXTOGGLEBUTTON3 = 1007,
 			ID_WXTOGGLEBUTTON2 = 1006,
 			ID_WXTOGGLEBUTTON1 = 1005,
+			ID_PICPLACE = 1068,
 			////GUI Enum Control ID End
 			ID_DUMMY_VALUE_ //don't remove this value unless you have other enum values
 		};

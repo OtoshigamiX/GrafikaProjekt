@@ -1,5 +1,4 @@
 #include "HeadShot.h"
-
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
@@ -22,8 +21,23 @@ Vector3d::Vector3d(double tab[3]){
 }
 
 
-bool Vector3d::get2D(double tab[4]){
- //TODO funkcja zwracajace wsp 2D jak w lab5  
+bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 mat){
+    static const double d = -2.0;
+    Matrix4 pr;
+    pr.data[0][0]=1;
+    pr.data[1][1]=1;
+    pr.data[2][2]=1;
+    pr.data[3][3]=0;
+    pr.data[3][2]=1.0/d;
+
+    mat=pr*mat;
+    *this=mat*(*this);
+    tab[0]=(this->getPX())/this->getPZ();
+    tab[1]=(this->getPY())/this->getPZ();
+    tab[2]=this->getKX()/this->getKZ();
+    tab[3]=this->getKY()/this->getKZ();
+    //scale(w/4, h/4, 1, t);
+    //translate(w/2, h/2, 0, t);
 
   return true;
 }
@@ -74,7 +88,7 @@ double  Vector3d::maxVec(Vector3d vec[],int len){
 
 double  Vector3d::minVec(Vector3d vec[],int len){
     double min= vec[0].Length();
-    for(int i=1;i <len);i++){
+    for(int i=1;i <len;i++){
         if(min > vec[i].Length()) min =vec[i].Length();
     }
     return min;

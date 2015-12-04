@@ -1,7 +1,7 @@
 # Project: PolaWektorowe
 # Compiler: Default GCC compiler
 # Compiler Type: MingW 3
-# Makefile created by wxDev-C++ IDE 7.4.2.569 on 04-12-15 00:37
+# Makefile created by wxDev-C++ IDE 7.4.2.569 on 04-12-15 15:38
 
 WXLIBNAME = wxmsw29u
 CPP       = g++.exe
@@ -36,10 +36,10 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(LINK) $(LINKOBJ) -o "$(BIN)" $(LIBS) 
 
-Objects/MingW/PolaWektoroweApp.o: $(GLOBALDEPS) PolaWektoroweApp.cpp PolaWektoroweApp.h PolaWektoroweFrm.h
+Objects/MingW/PolaWektoroweApp.o: $(GLOBALDEPS) PolaWektoroweApp.cpp PolaWektoroweApp.h PolaWektoroweFrm.h Boom.h HeadShot.h
 	$(CPP) -c PolaWektoroweApp.cpp -o Objects/MingW/PolaWektoroweApp.o $(CXXFLAGS)
 
-Objects/MingW/PolaWektoroweFrm.o: $(GLOBALDEPS) PolaWektoroweFrm.cpp PolaWektoroweFrm.h
+Objects/MingW/PolaWektoroweFrm.o: $(GLOBALDEPS) PolaWektoroweFrm.cpp PolaWektoroweFrm.h Boom.h HeadShot.h
 	$(CPP) -c PolaWektoroweFrm.cpp -o Objects/MingW/PolaWektoroweFrm.o $(CXXFLAGS)
 
 Objects/MingW/HeadShot.o: $(GLOBALDEPS) HeadShot.cpp HeadShot.h
