@@ -270,15 +270,21 @@ void PolaWektoroweFrm::Rysuj(wxPaintEvent& event)
     wxClientDC clientDC(PicPlace);
     wxBufferedDC dc(&clientDC);
     int w,h;
- 
     PicPlace->GetSize(&w,&h);
+    mat=rotate(0,0,0,mat);
+    mat=translate(0,0,0,mat);
+    mat=scale(1,1,1,mat);
+    
     dc.SetBackground(wxBrush(RGB(255,255,255)));
     dc.Clear();
-    
-    Vector3d test1(20,30,1,12,24,100);
+    //wspolrzedna Z musi byæ jakos dzielona wzgledem x,y, najlepiej przez 100 chyba, bo rozmiary ekranu np 200x200 to x=y=200, ale z sie smiesznie skaluje i powinna byc rowna z=2
+    Vector3d test1(10,10,1,510,210,1);
+    Vector3d test3(1,1,0.6,500,200,0.6);
     Vector3d test2(50,50,1,400,350,4);
+    
     //argumenty (wxDC,Vector3d,R,G,B,Matrix4)
-    boomLine(dc,test2,255,0,0,mat);
+    boomLine(dc,test1,255,0,0,mat);
+    boomLine(dc,test3,0,0,255,mat);
     dc.SetPen(wxPen(RGB(0,255,0),1,wxPENSTYLE_SOLID));
     dc.DrawLine(40,40,390,340);
 }

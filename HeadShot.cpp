@@ -1,4 +1,5 @@
 #include "HeadShot.h"
+#include"Boom.h"
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
@@ -21,23 +22,61 @@ Vector3d::Vector3d(double tab[3]){
 }
 
 
-bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 mat){
-    static const double d = -2.0;
+bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
+    static const double d = 0.5;
     Matrix4 pr;
+    // ze strony http://wazniak.mimuw.edu.pl/index.php?title=GKIW_Modu%C5%82_5_-_Reprezentacja_przestrzeni_tr%C3%B3jwymiarowej_na_p%C5%82aszczy%C5%BAnie
     pr.data[0][0]=1;
+    pr.data[1][1]=1;
+    pr.data[2][2]=1.0/(1.0-d);
+    pr.data[2][3]=-d/(1.0-d);
+    pr.data[3][3]=0;
+    pr.data[3][2]=1;
+    
+    mat=pr*mat;
+    *this=mat*(*this);
+    
+    this->set(0,(this->getPX())/this->get(3));
+    this->set(1,(this->getPY())/this->get(3));
+    this->set(2,(this->get(3)-d)/(this->get(3)*(1.0-d)));
+    this->set(3,1);
+    this->set(4,(this->getKX())/this->get(7));
+    this->set(5,(this->getKY())/this->get(7));
+    this->set(6,(this->get(3)-d)/(this->get(7)*(1.0-d)));
+    this->set(7,1);
+    
+    //z jakiejs smiesznej strony, tyle, ¿e traktuje punkt 0,0 jako srodek ekranu, zreszta to z wykladu tak samo
+
+   /* pr.data[0][0]=1;
     pr.data[1][1]=1;
     pr.data[2][2]=1;
     pr.data[3][3]=0;
     pr.data[3][2]=1.0/d;
 
+    int w,h;
+    dc.GetSize(&w,&h);//jak rozszerzymy i zmniejszymy okno to zostaja rozmiary rozszerzonego
+   //mat = scale(w/4, h/4, 1, mat);
+ 
     mat=pr*mat;
     *this=mat*(*this);
-    tab[0]=(this->getPX())/this->getPZ();
-    tab[1]=(this->getPY())/this->getPZ();
-    tab[2]=this->getKX()/this->getKZ();
-    tab[3]=this->getKY()/this->getKZ();
-    //scale(w/4, h/4, 1, t);
-    //translate(w/2, h/2, 0, t);
+    this->set(0,(this->getPX()*d)/this->getPZ());
+    this->set(1,(this->getPY()*d)/this->getPZ());
+    this->set(2,(d));
+    this->set(3,1);
+    this->set(4,(this->getKX()*d)/this->getKZ());
+    this->set(5,(this->getKY()*d)/this->getKZ());
+    this->set(6,(d));
+    this->set(7,1);*/
+    
+    tab[0]=this->getPX();
+    tab[1]=this->getPY();
+    tab[2]=this->getKX();
+    tab[3]=this->getKY();
+    //z wykladu
+    /*tab[0]=(this->getPX()*d)/this->getPZ();
+    tab[1]=(this->getPY()*d)/this->getPZ();
+    tab[2]=(this->getKX()*d)/this->getKZ();
+    tab[3]=(this->getKY()*d)/this->getKZ();*/
 
   return true;
 }

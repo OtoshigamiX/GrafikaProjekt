@@ -36,7 +36,7 @@ public:
     //funkcje
     
     //zwraca wspolrzedne w 2D
-    bool get2D(wxDC &dc, double tab[4],Matrix4 mat);
+    bool get2D(wxDC &dc, double tab[4],Matrix4 &mat);
     // zwraca wartosc ok
     bool isOk();
     //zwraca dlugosc wektora
