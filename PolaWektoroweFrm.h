@@ -53,12 +53,20 @@ class PolaWektoroweFrm : public wxFrame
 		void Rysuj(wxPaintEvent& event);
 		void Draw();
 		void PicPlaceUpdateUI(wxUpdateUIEvent& event);
+		void WxToggleButton1Click(wxCommandEvent& event);
+		void WxToggleButton2Click(wxCommandEvent& event);
+		void WxToggleButton3Click(wxCommandEvent& event);
+		void WxToggleButton4Click(wxCommandEvent& event);
+		void WxEdit1Updated(wxCommandEvent& event);
+		void WxEdit2Updated(wxCommandEvent& event);
+		void WxEdit14Updated(wxCommandEvent& event);
 		
 	private:
 		//Do not add custom control declarations between
 		//GUI Control Declaration Start and GUI Control Declaration End.
 		//wxDev-C++ will remove them. Add custom code after the block.
 		////GUI Control Declaration Start
+		wxStaticText *WxStaticText22;
 		wxTextCtrl *WxEdit15;
 		wxStaticText *WxStaticText21;
 		wxTextCtrl *WxEdit14;
@@ -133,6 +141,7 @@ class PolaWektoroweFrm : public wxFrame
 		enum
 		{
 			////GUI Enum Control ID Start
+			ID_WXSTATICTEXT22 = 1069,
 			ID_WXEDIT15 = 1066,
 			ID_WXSTATICTEXT21 = 1065,
 			ID_WXEDIT14 = 1064,

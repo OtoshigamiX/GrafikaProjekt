@@ -20,6 +20,13 @@
 #include <wx/sizer.h>
 #include <wx/colour.h>
 
+//Parser doubli z wxStringa
+static double wxAtod(wxString a){
+        double value;
+        a.ToDouble(&value);
+        return value;
+}
+
 
 static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
      double tmp[4];
