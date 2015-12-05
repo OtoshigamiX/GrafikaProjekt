@@ -57,10 +57,11 @@ object frmNewForm: TfrmNewForm
       Wx_StretchFactor = 1
       object PicPlace: TWxPanel
         Left = 5
-        Top = 4
+        Top = 5
         Width = 185
         Height = 41
         TabOrder = 0
+        EVT_UPDATE_UI = 'PicPlaceUpdateUI'
         Wx_BKColor = clBlack
         Wx_Class = 'wxPanel'
         Wx_ControlOrientation = wxControlVertical

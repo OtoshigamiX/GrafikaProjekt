@@ -22,6 +22,7 @@
 	#include <wx/wxprec.h>
 #endif
 #include "Boom.h"
+#include <wx/dcbuffer.h>
 //Do not add custom headers between 
 //Header Include Start and Header Include End.
 //wxDev-C++ designer will remove them. Add custom headers after the block.
@@ -34,7 +35,6 @@
 #include <wx/tglbtn.h>
 #include <wx/panel.h>
 #include <wx/sizer.h>
-#include <wx/dcbuffer.h>
 ////Header Include End
 
 ////Dialog Style Start
@@ -51,6 +51,8 @@ class PolaWektoroweFrm : public wxFrame
 		PolaWektoroweFrm(wxWindow *parent, wxWindowID id = 1, const wxString &title = wxT("PolaWektorowe"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = PolaWektoroweFrm_STYLE);
 		virtual ~PolaWektoroweFrm();
 		void Rysuj(wxPaintEvent& event);
+		void Draw();
+		void PicPlaceUpdateUI(wxUpdateUIEvent& event);
 		
 	private:
 		//Do not add custom control declarations between

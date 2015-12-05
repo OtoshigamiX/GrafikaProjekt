@@ -27,6 +27,8 @@ BEGIN_EVENT_TABLE(PolaWektoroweFrm,wxFrame)
 	////Manual Code End
 	
 	EVT_CLOSE(PolaWektoroweFrm::OnClose)
+	
+	EVT_UPDATE_UI(ID_PICPLACE,PolaWektoroweFrm::PicPlaceUpdateUI)
 END_EVENT_TABLE()
 ////Event Table End
 
@@ -55,7 +57,7 @@ void PolaWektoroweFrm::CreateGUIControls()
 	WxBoxSizer14 = new wxBoxSizer(wxHORIZONTAL);
 	WxBoxSizer1->Add(WxBoxSizer14, 1, wxALIGN_CENTER | wxEXPAND | wxALL, 5);
 
-	PicPlace = new wxPanel(this, ID_PICPLACE, wxPoint(5, 4), wxSize(185, 41));
+	PicPlace = new wxPanel(this, ID_PICPLACE, wxPoint(5, 5), wxSize(185, 41));
 	WxBoxSizer14->Add(PicPlace, 1, wxALIGN_CENTER | wxEXPAND | wxALL, 5);
 
 	WxBoxSizer2 = new wxBoxSizer(wxVERTICAL);
@@ -265,12 +267,22 @@ void PolaWektoroweFrm::OnClose(wxCloseEvent& event)
 }
 void PolaWektoroweFrm::Rysuj(wxPaintEvent& event) 
 {
+  Draw();
+}
+void  PolaWektoroweFrm::Draw(){
     Matrix4 mat;//mozna dodac w jakiej klasie sotrage
-    
+    Vector3d vecTab[10][10][10];
     wxClientDC clientDC(PicPlace);
+    //jak siê w³¹czy bufferedDC to translate w funkcji rzutuj¹cej ma problem z GetSize(), bo buffered dc cache'uje wartosci, bug jest potwierdzony na stonie biblioteki
     wxBufferedDC dc(&clientDC);
+    //poni¿sze tylko gdy chcemy obliczaæ w,h za kazdym razem i korzystamy w funkcji rzutuj¹cej tak, ¿e pobieramy w i h z Matrix4 mat
     int w,h;
     PicPlace->GetSize(&w,&h);
+    wxSize size;
+    size=this->GetClientSize();
+    mat.setWinW(size.GetWidth());
+    mat.setWinH(size.GetHeight());
+    ////tu koniec
     mat=rotate(0,0,0,mat);
     mat=translate(0,0,0,mat);
     mat=scale(1,1,1,mat);
@@ -278,7 +290,8 @@ void PolaWektoroweFrm::Rysuj(wxPaintEvent& event)
     dc.SetBackground(wxBrush(RGB(255,255,255)));
     dc.Clear();
     //wspolrzedna Z musi byæ jakos dzielona wzgledem x,y, najlepiej przez 100 chyba, bo rozmiary ekranu np 200x200 to x=y=200, ale z sie smiesznie skaluje i powinna byc rowna z=2
-    Vector3d test1(10,10,1,510,210,1);
+    //z min=0.6
+   /* Vector3d test1(10,10,1,510,210,1);/////////////////testowe
     Vector3d test3(1,1,0.6,500,200,0.6);
     Vector3d test2(50,50,1,400,350,4);
     
@@ -286,5 +299,27 @@ void PolaWektoroweFrm::Rysuj(wxPaintEvent& event)
     boomLine(dc,test1,255,0,0,mat);
     boomLine(dc,test3,0,0,255,mat);
     dc.SetPen(wxPen(RGB(0,255,0),1,wxPENSTYLE_SOLID));
-    dc.DrawLine(40,40,390,340);
+    dc.DrawLine(40,40,390,340);*/
+    //kurwa dzia³a, ma³e linie siê pojawi³y xD
+    
+    for(int k=0;k<10;k++){
+        for(int l=0;l<10;l++){
+            for(int m=0; m<10;m++){
+                //takie dziwne rzeczy porobione ¿eby wyœwietla³o w jakims normalnym po³o¿eniu, tzn to dodawanie i mno¿enie
+                vecTab[k][l][m].setStart(double (k*50)+50,double (l*50)+200,double(0.8+(m/10.0)));
+                //jakas tam funkcja, ale efekt jest :D
+                vecTab[k][l][m].setEnd(double ((k*50)+50.0)*1.3,double (((l+1)*50)+170)*0.8,double(0.8 +(m/10.0)));
+                boomLine(dc,vecTab[k][l][m],k*25,l*25,m*25,mat);
+            }
+        }
+    } 
+    
+}
+
+/*
+ * PicPlaceUpdateUI
+ */
+void PolaWektoroweFrm::PicPlaceUpdateUI(wxUpdateUIEvent& event)
+{
+	Draw();
 }

@@ -26,7 +26,8 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     static const double d = 0.5;
     Matrix4 pr;
     // ze strony http://wazniak.mimuw.edu.pl/index.php?title=GKIW_Modu%C5%82_5_-_Reprezentacja_przestrzeni_tr%C3%B3jwymiarowej_na_p%C5%82aszczy%C5%BAnie
-    pr.data[0][0]=1;
+    // nie dzia³a jak powinna >.<
+  /*  pr.data[0][0]=1;
     pr.data[1][1]=1;
     pr.data[2][2]=1.0/(1.0-d);
     pr.data[2][3]=-d/(1.0-d);
@@ -43,21 +44,28 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     this->set(4,(this->getKX())/this->get(7));
     this->set(5,(this->getKY())/this->get(7));
     this->set(6,(this->get(3)-d)/(this->get(7)*(1.0-d)));
-    this->set(7,1);
+    this->set(7,1);*/
     
     //z jakiejs smiesznej strony, tyle, ¿e traktuje punkt 0,0 jako srodek ekranu, zreszta to z wykladu tak samo
 
-   /* pr.data[0][0]=1;
+    pr.data[0][0]=1;
     pr.data[1][1]=1;
     pr.data[2][2]=1;
     pr.data[3][3]=0;
     pr.data[3][2]=1.0/d;
 
-    int w,h;
-    dc.GetSize(&w,&h);//jak rozszerzymy i zmniejszymy okno to zostaja rozmiary rozszerzonego
-   //mat = scale(w/4, h/4, 1, mat);
- 
+    //mat = scale(w/4, h/4, 1, mat);
+    //zrobiony translate podwojny bo rzutowanie sie odbywa tak jakby widz by³ w punkcie 0,0,0.5, a my chcemy w œrodku ekranu
+    //ponizsze u¿ywa globalnego width i height zapisanego w klasie Matrix4
+    /*mat=translate(-mat.getWinW()/2,-mat.getWinH()/2,0,mat);
     mat=pr*mat;
+    mat=translate(mat.getWinW()/2,mat.getWinH()/2,0,mat);*/
+    //poni¿sze za ka¿dym razem oblicza od nowa
+    int w,h;
+    dc.GetSize(&w,&h);
+    mat=translate(-w/2,-h/2,0,mat);
+    mat=pr*mat;
+    mat=translate(w/2,h/2,0,mat);
     *this=mat*(*this);
     this->set(0,(this->getPX()*d)/this->getPZ());
     this->set(1,(this->getPY()*d)/this->getPZ());
@@ -66,7 +74,7 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     this->set(4,(this->getKX()*d)/this->getKZ());
     this->set(5,(this->getKY()*d)/this->getKZ());
     this->set(6,(d));
-    this->set(7,1);*/
+    this->set(7,1);
     
     tab[0]=this->getPX();
     tab[1]=this->getPY();

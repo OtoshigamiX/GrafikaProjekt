@@ -65,6 +65,7 @@ public:
     void set(int i, double val);
     //pozwala pobrac konkretne pole danych i pole, val dane
     double get(int i) const;
+    //ustawia szerokosc okna
 private:
     //pierwsze 3 wspolrzedne to poczatek, kolejne 3 to koniec, o 2 dluzszy bo byly jakies magie z mnozeniem przez ta macierz poczatek : x,y,z,d i koniec : x,y,z,d
     double cord[8];
@@ -85,12 +86,17 @@ class Matrix4{
 public:
     friend class Vector3d;
     double data[4][4];
+    //wartosci wysokosci i szerokosci okna
+    int winH;
+    int winW;
     Matrix4()
     {
      data[0][0]=1.0; data[0][1]=0.0; data[0][2]=0.0; data[0][3]=0.0;
      data[1][0]=0.0; data[1][1]=1.0; data[1][2]=0.0; data[1][3]=0.0;
      data[2][0]=0.0; data[2][1]=0.0; data[2][2]=1.0; data[2][3]=0.0;
      data[3][0]=0.0; data[3][1]=0.0; data[3][2]=0.0; data[3][3]=1.0;
+     winW=400;
+    winH=300;
     }
     
     void Print(void)
@@ -131,6 +137,15 @@ public:
       }
      return tmp;
     }
+void setWinW(int w){
+    winW=w;
+}
+
+void  setWinH(int h){
+    winH=h;
+}
+int getWinW(){return winW;}
+int getWinH(){return winH;}
 };
 ///////////////////////////////////////////////////////////////////////////////////////
 
