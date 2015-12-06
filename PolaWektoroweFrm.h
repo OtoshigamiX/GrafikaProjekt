@@ -60,6 +60,9 @@ class PolaWektoroweFrm : public wxFrame
 		void WxEdit1Updated(wxCommandEvent& event);
 		void WxEdit2Updated(wxCommandEvent& event);
 		void WxEdit14Updated(wxCommandEvent& event);
+		void WxScrollBar1Scroll(wxScrollEvent& event);
+		void WxScrollBar2Scroll(wxScrollEvent& event);
+		void WxScrollBar3Scroll(wxScrollEvent& event);
 		
 	private:
 		//Do not add custom control declarations between
