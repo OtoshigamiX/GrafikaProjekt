@@ -1,7 +1,6 @@
 #include "HeadShot.h"
 #include"Boom.h"
 int Matrix4::endZ=0;
-
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
@@ -26,7 +25,7 @@ Vector3d::Vector3d(double tab[3]){
 
 bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     static const double d = 0.5;
-    Matrix4 pr;
+    Matrix4 pr,tmp;
     // ze strony http://wazniak.mimuw.edu.pl/index.php?title=GKIW_Modu%C5%82_5_-_Reprezentacja_przestrzeni_tr%C3%B3jwymiarowej_na_p%C5%82aszczy%C5%BAnie
     // nie dzia³a jak powinna >.<
   /*  pr.data[0][0]=1;
@@ -49,9 +48,10 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     this->set(7,1);*/
     
     //z jakiejs smiesznej strony, tyle, ¿e traktuje punkt 0,0 jako srodek ekranu, zreszta to z wykladu tak samo
+    //Vector3d tmp1(this->getPX(),this->getPY(),this->getPZ(),this->get(3),this->getKX(),this->getKY(),this->getKZ(),this->get(7));
     int w,h;
-    dc.GetSize(&w,&h);
     *this=mat*(*this);
+    dc.GetSize(&w,&h);
     pr.data[0][0]=1;
     pr.data[1][1]=1;
     pr.data[2][2]=1;
@@ -65,12 +65,14 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     /*mat=translate(-mat.getWinW()/2,-mat.getWinH()/2,0,mat);
     mat=pr*mat;
     mat=translate(mat.getWinW()/2,mat.getWinH()/2,0,mat);*/
-    //poni¿sze za ka¿dym razem oblicza od nowa
 
+
+//mno¿enie macierzy jednostkwej przez macierz projekcji
     
-    *this=pr*(*this);
-    //mat=translate(w/2,h/2,0,mat);
-    
+    tmp=pr*tmp;
+    tmp=scale(w/150,w/150,1,tmp);
+    tmp=translate(w/4,h/4,0,tmp);
+    *this=tmp*(*this);
     this->set(0,(this->getPX()*d)/this->getPZ());
     this->set(1,(this->getPY()*d)/this->getPZ());
     this->set(2,(d));

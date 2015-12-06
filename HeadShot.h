@@ -89,6 +89,7 @@ private:
 class Matrix4{
 public:
     static int endZ;
+    static double sX,sY;
     friend class Vector3d;
     double data[4][4];
     //wartosci wysokosci i szerokosci okna
