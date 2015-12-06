@@ -66,7 +66,6 @@ class PolaWektoroweFrm : public wxFrame
 		//GUI Control Declaration Start and GUI Control Declaration End.
 		//wxDev-C++ will remove them. Add custom code after the block.
 		////GUI Control Declaration Start
-		wxStaticText *WxStaticText22;
 		wxTextCtrl *WxEdit15;
 		wxStaticText *WxStaticText21;
 		wxTextCtrl *WxEdit14;
@@ -122,6 +121,7 @@ class PolaWektoroweFrm : public wxFrame
 		wxScrollBar *WxScrollBar1;
 		wxStaticText *WxStaticText1;
 		wxBoxSizer *WxBoxSizer3;
+		wxStaticText *WxStaticText22;
 		wxToggleButton *WxToggleButton4;
 		wxToggleButton *WxToggleButton3;
 		wxToggleButton *WxToggleButton2;
@@ -141,7 +141,6 @@ class PolaWektoroweFrm : public wxFrame
 		enum
 		{
 			////GUI Enum Control ID Start
-			ID_WXSTATICTEXT22 = 1069,
 			ID_WXEDIT15 = 1066,
 			ID_WXSTATICTEXT21 = 1065,
 			ID_WXEDIT14 = 1064,
@@ -186,6 +185,7 @@ class PolaWektoroweFrm : public wxFrame
 			ID_WXSTATICTEXT2 = 1015,
 			ID_WXSCROLLBAR1 = 1014,
 			ID_WXSTATICTEXT1 = 1013,
+			ID_WXSTATICTEXT22 = 1069,
 			ID_WXTOGGLEBUTTON4 = 1009,
 			ID_WXTOGGLEBUTTON3 = 1007,
 			ID_WXTOGGLEBUTTON2 = 1006,
