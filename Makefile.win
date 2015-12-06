@@ -1,7 +1,7 @@
 # Project: PolaWektorowe
 # Compiler: Default GCC compiler
 # Compiler Type: MingW 3
-# Makefile created by wxDev-C++ IDE 7.4.2.569 on 06/12/15 14:47
+# Makefile created by wxDev-C++ IDE 7.4.2.569 on 06-12-15 21:43
 
 WXLIBNAME = wxmsw29u
 CPP       = g++.exe
@@ -9,10 +9,10 @@ CC        = gcc.exe
 WINDRES   = "windres.exe"
 OBJ       = Objects/MingW/PolaWektoroweApp.o Objects/MingW/PolaWektoroweFrm.o Objects/MingW/HeadShot.o Objects/MingW/PolaWektorowe_private.res
 LINKOBJ   = "Objects/MingW/PolaWektoroweApp.o" "Objects/MingW/PolaWektoroweFrm.o" "Objects/MingW/HeadShot.o" Objects/MingW/PolaWektorowe_private.res
-LIBS      = -L"D:/wxdev/lib/wx/gcc_lib" -L"D:/wxdev/lib" -L"D:/wxdev/MinGW32/lib" -mwindows -l$(WXLIBNAME) -l$(WXLIBNAME)_gl -lwxscintilla -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregexu -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 -lopengl32  -g3 
-INCS      = -I"D:/wxdev/MinGW32/include"
-CXXINCS   = -I"D:/wxdev/MinGW32/include" -I"D:/wxdev/" -I"D:/wxdev/include/common"
-RCINCS    = --include-dir "D:/wxdev/include/common"
+LIBS      = -L"C:/Program Files (x86)/Dev-Cpp/lib/wx/gcc_lib" -L"C:/Program Files (x86)/Dev-Cpp/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -mwindows -l$(WXLIBNAME) -l$(WXLIBNAME)_gl -lwxscintilla -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregexu -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 -lopengl32  -g3 
+INCS      = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
+CXXINCS   = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/" -I"C:/Program Files (x86)/Dev-Cpp/include/common"
+RCINCS    = --include-dir "C:/PROGRA~2/Dev-Cpp/include/common"
 BIN       = Output/MingW/PolaWektorowe.exe
 DEFINES   = -D__WXMSW__ -D__GNUWIN32__ -D_UNICODE
 CXXFLAGS  = $(CXXINCS) $(DEFINES)   -g3

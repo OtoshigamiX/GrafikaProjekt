@@ -298,18 +298,17 @@ void  PolaWektoroweFrm::Draw(){
     wxBufferedDC dc(&clientDC);
     //poni¿sze tylko gdy chcemy obliczaæ w,h za kazdym razem i korzystamy w funkcji rzutuj¹cej tak, ¿e pobieramy w i h z Matrix4 mat
     int w,h;
+    dc.Clear();
     PicPlace->GetSize(&w,&h);
     wxSize size;
     size=this->GetClientSize();
     mat.setWinW(size.GetWidth());
     mat.setWinH(size.GetHeight());
     ////tu koniec
-    mat=rotate(WxScrollBar1->GetThumbPosition(),WxScrollBar2->GetThumbPosition(),WxScrollBar3->GetThumbPosition(),mat);
-    mat=translate(0,0,0,mat);
-    mat=scale(1,1,1,mat);
+
     
     dc.SetBackground(wxBrush(RGB(255,255,255)));
-    dc.Clear();
+    
     //wspolrzedna Z musi byæ jakos dzielona wzgledem x,y, najlepiej przez 100 chyba, bo rozmiary ekranu np 200x200 to x=y=200, ale z sie smiesznie skaluje i powinna byc rowna z=2
     //z min=0.6
    /* Vector3d test1(10,10,1,510,210,1);/////////////////testowe
@@ -332,6 +331,24 @@ void  PolaWektoroweFrm::Draw(){
     KrokX=wxAtod(WxEdit7->GetValue());
     KrokY=wxAtod(WxEdit8->GetValue());
     KrokZ=wxAtod(WxEdit9->GetValue());
+    
+    //obrot z
+    mat=translate(-ZakresX/2+5,-ZakresY/2+5,0,mat);
+    mat=rotate(0,0,WxScrollBar3->GetThumbPosition(),mat);
+    mat=translate(ZakresX/2-5,ZakresY/2-5,0,mat);
+    //obrot x
+    mat=translate(0,-ZakresY/2,-(0.7+ ZakresZ)/2,mat);
+    mat=rotate(WxScrollBar1->GetThumbPosition(),0,0,mat);
+    mat=translate(0,ZakresY/2,(0.7+ ZakresZ)/2,mat);
+    //obrot y
+    mat=translate(-ZakresX/2,0,-(0.7+ ZakresZ)/2,mat);
+    mat=rotate(0,WxScrollBar2->GetThumbPosition(),0,mat);
+    mat=translate(ZakresX/2,0,(0.7+ ZakresZ)/2,mat);
+    
+    mat=scale(w/150,w/150,1,mat);
+    mat=translate(w/2-ZakresX*w/300,h/2-ZakresY*w/300+100,0,mat);
+    
+    
     // moja propozycja, ale nie dziala niestety, zawiera duze complexity
    /* for(double i=wxAtod(WxEdit1->GetValue());i<=wxAtod(WxEdit4->GetValue());i=i+wxAtod(WxEdit7->GetValue())){
         for(double j=wxAtod(WxEdit2->GetValue());j<=wxAtod(WxEdit5->GetValue());j=j+wxAtod(WxEdit8->GetValue())){
@@ -367,16 +384,16 @@ void  PolaWektoroweFrm::Draw(){
                 //vecTab[k][l][m].setEnd(double ((k*50))*1.3,double (((l+1)*50)+170)*0.8,double(m));
                 //boomLine(dc,Vector3d(k*5,l*5+20,m,k*5*1.3,(((l+1)*5)+17)*0.8,m),k*25,l*25,m*25,mat);
                 if(WxToggleButton1->GetValue()){
-                    boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)/10.0),255,0,0,mat);
+                    boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)),255,0,0,mat);
                 }
                 if(WxToggleButton2->GetValue()){
-                    boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)/10.0),i*25,j*25,k*25,mat);
+                    boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)),i*25,j*25,k*25,mat);
                 }
                 if(WxToggleButton3->GetValue()){
-                   boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)/10.0),i*25,j*25,k*25,mat);
+                   boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)),i*25,j*25,k*25,mat);
                 }
                 if(WxToggleButton4->GetValue()){
-                   boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)/10.0),i*25,j*25,k*25,mat);
+                   boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)),i*25,j*25,k*25,mat);
                 }
                 
             }

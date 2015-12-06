@@ -1,6 +1,7 @@
 #include "HeadShot.h"
 #include"Boom.h"
 int Matrix4::endZ=0;
+
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
@@ -48,7 +49,9 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     this->set(7,1);*/
     
     //z jakiejs smiesznej strony, tyle, ¿e traktuje punkt 0,0 jako srodek ekranu, zreszta to z wykladu tak samo
-
+    int w,h;
+    dc.GetSize(&w,&h);
+    *this=mat*(*this);
     pr.data[0][0]=1;
     pr.data[1][1]=1;
     pr.data[2][2]=1;
@@ -63,12 +66,11 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     mat=pr*mat;
     mat=translate(mat.getWinW()/2,mat.getWinH()/2,0,mat);*/
     //poni¿sze za ka¿dym razem oblicza od nowa
-    int w,h;
-    dc.GetSize(&w,&h);
-    mat=translate(-w/2,-h/2,0,mat);
-    mat=pr*mat;
-    mat=translate(w/2,h/2,0,mat);
-    *this=mat*(*this);
+
+    
+    *this=pr*(*this);
+    //mat=translate(w/2,h/2,0,mat);
+    
     this->set(0,(this->getPX()*d)/this->getPZ());
     this->set(1,(this->getPY()*d)/this->getPZ());
     this->set(2,(d));
