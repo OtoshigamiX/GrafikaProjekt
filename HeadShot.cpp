@@ -53,7 +53,8 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     pr.data[2][2]=1;
     pr.data[3][3]=0;
     pr.data[3][2]=1.0/d;
-
+    this->set(2,0.7+ this->getPZ()/15.0);
+    this->set(6,0.7+ this->getKZ()/15.0);
     //mat = scale(w/4, h/4, 1, mat);
     //zrobiony translate podwojny bo rzutowanie sie odbywa tak jakby widz by³ w punkcie 0,0,0.5, a my chcemy w œrodku ekranu
     //ponizsze u¿ywa globalnego width i height zapisanego w klasie Matrix4

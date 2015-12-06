@@ -311,7 +311,7 @@ void  PolaWektoroweFrm::Draw(){
     
     
     // moja propozycja, ale nie dziala niestety, zawiera duze complexity
-    for(double i=wxAtod(WxEdit1->GetValue());i<=wxAtod(WxEdit4->GetValue());i=i+wxAtod(WxEdit7->GetValue())){
+   /* for(double i=wxAtod(WxEdit1->GetValue());i<=wxAtod(WxEdit4->GetValue());i=i+wxAtod(WxEdit7->GetValue())){
         for(double j=wxAtod(WxEdit2->GetValue());j<=wxAtod(WxEdit5->GetValue());j=j+wxAtod(WxEdit8->GetValue())){
             for(double k=wxAtod(WxEdit3->GetValue());k<=wxAtod(WxEdit6->GetValue());k=k+wxAtod(WxEdit9->GetValue())){
                 if(WxToggleButton1->GetValue()){
@@ -331,18 +331,18 @@ void  PolaWektoroweFrm::Draw(){
         }
     }
     
-    /*
+    */
     for(int k=0;k<10;k++){
         for(int l=0;l<10;l++){
             for(int m=0; m<10;m++){
                 //takie dziwne rzeczy porobione ¿eby wyœwietla³o w jakims normalnym po³o¿eniu, tzn to dodawanie i mno¿enie
-                vecTab[k][l][m].setStart(double (k*50)+50,double (l*50)+200,double(0.8+(m/10.0)));
+                vecTab[k][l][m].setStart(double (k*50),double (l*50)+200,double(m));
                 //jakas tam funkcja, ale efekt jest :D
-                vecTab[k][l][m].setEnd(double ((k*50)+50.0)*1.3,double (((l+1)*50)+170)*0.8,double(0.8 +(m/10.0)));
+                vecTab[k][l][m].setEnd(double ((k*50))*1.3,double (((l+1)*50)+170)*0.8,double(m));
                 boomLine(dc,vecTab[k][l][m],k*25,l*25,m*25,mat);
             }
         }
-    } */
+    } 
     
 }
 
