@@ -19,12 +19,14 @@
 #include <wx/tglbtn.h>
 #include <wx/sizer.h>
 #include <wx/colour.h>
-
 //Parser doubli z wxStringa
 static double wxAtod(wxString a){
         double value;
         a.ToDouble(&value);
         return value;
+    /*std::string str= a.ToStdString();
+    double n = atof(str.c_str());
+    return n;*/
 }
 
 

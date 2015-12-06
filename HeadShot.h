@@ -25,6 +25,8 @@
 **    !!!WARNING!!! pamietac, ze jak bedziemy robic wektory jednostkowe to przemnazac trzeba bedzie tylko koniec bez poczatku wiec trzeba beczie dodac funkcje mnozaca tylko koniec wektora
 **    TODO: Nakladka na wxWidgets z rysowaniem zeby nie trzeba bylo wklepywac wszystkich koordynantow, tylko zeby wystarczylo wklepac : Line(vec1, color blue);
 **/
+
+
 class Matrix4;
 class Vector3d{
 public:
@@ -65,7 +67,8 @@ public:
     void set(int i, double val);
     //pozwala pobrac konkretne pole danych i pole, val dane
     double get(int i) const;
-    //ustawia szerokosc okna
+
+    
 private:
     //pierwsze 3 wspolrzedne to poczatek, kolejne 3 to koniec, o 2 dluzszy bo byly jakies magie z mnozeniem przez ta macierz poczatek : x,y,z,d i koniec : x,y,z,d
     double cord[8];
@@ -76,6 +79,7 @@ private:
     //zwraca dlugosc najkrotszego wektora
     static double minVec(Vector3d vec[],int len);
 
+
 };
 
 /**
@@ -84,11 +88,13 @@ private:
 **/
 class Matrix4{
 public:
+    static int endZ;
     friend class Vector3d;
     double data[4][4];
     //wartosci wysokosci i szerokosci okna
     int winH;
     int winW;
+    
     Matrix4()
     {
      data[0][0]=1.0; data[0][1]=0.0; data[0][2]=0.0; data[0][3]=0.0;

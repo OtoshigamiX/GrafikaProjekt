@@ -9,6 +9,8 @@
 ///------------------------------------------------------------------
 
 #include "PolaWektoroweFrm.h"
+#include <stdlib.h>
+#include <string> 
 //Do not add custom headers between
 //Header Include Start and Header Include End
 //wxDev-C++ designer will remove them
@@ -308,8 +310,16 @@ void  PolaWektoroweFrm::Draw(){
     dc.SetPen(wxPen(RGB(0,255,0),1,wxPENSTYLE_SOLID));
     dc.DrawLine(40,40,390,340);*/
     //kurwa dzia³a, ma³e linie siê pojawi³y xD
-    
-    
+     double StartX,StartY,StartZ,ZakresX,ZakresY,ZakresZ, KrokX,KrokY, KrokZ;
+    StartX=wxAtod(WxEdit1->GetValue());
+    StartY=wxAtod(WxEdit2->GetValue());
+    StartY=wxAtod(WxEdit3->GetValue());
+    ZakresX=wxAtod(WxEdit4->GetValue());
+    ZakresY=wxAtod(WxEdit5->GetValue());
+    ZakresZ=wxAtod(WxEdit6->GetValue());
+    KrokX=wxAtod(WxEdit7->GetValue());
+    KrokY=wxAtod(WxEdit8->GetValue());
+    KrokZ=wxAtod(WxEdit9->GetValue());
     // moja propozycja, ale nie dziala niestety, zawiera duze complexity
    /* for(double i=wxAtod(WxEdit1->GetValue());i<=wxAtod(WxEdit4->GetValue());i=i+wxAtod(WxEdit7->GetValue())){
         for(double j=wxAtod(WxEdit2->GetValue());j<=wxAtod(WxEdit5->GetValue());j=j+wxAtod(WxEdit8->GetValue())){
@@ -318,7 +328,7 @@ void  PolaWektoroweFrm::Draw(){
                     boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)/10.0),255,0,0,mat);
                 }
                 if(WxToggleButton2->GetValue()){
-                    boomLine(dc,Vector3d(2.0+i*5,2.0+j*5,3.0+(k*5.0)/10.0,2*i*5,2*j*5,3.0+(2.0*k)/10.0),i*25,j*25,k*25,mat);
+                    boomLine(dc,Vector3d(2.0+i*5,2.0+j*5,3.0+(k*5.0)/10.0,2*i*5,2*j*5,2.0*k),i*25,j*25,k*25,mat);
                 }
                 if(WxToggleButton3->GetValue()){
                     boomLine(dc,Vector3d(i,j,k,2*i,2*j,(2.0*k)/10.0),i*25,j*25,k*25,mat);
@@ -332,18 +342,20 @@ void  PolaWektoroweFrm::Draw(){
     }
     
     */
-    for(int k=0;k<10;k++){
-        for(int l=0;l<10;l++){
-            for(int m=0; m<10;m++){
+    if(ZakresX<ZakresY)Matrix4::endZ=ZakresX;
+    else Matrix4::endZ=ZakresY;
+    for(double k=StartX;k<ZakresX;k+=KrokX){
+        for(double l=StartY;l<ZakresY;l+=KrokY){
+            for(double m=StartZ; m<ZakresZ;m+=KrokZ){
                 //takie dziwne rzeczy porobione ¿eby wyœwietla³o w jakims normalnym po³o¿eniu, tzn to dodawanie i mno¿enie
-                vecTab[k][l][m].setStart(double (k*50),double (l*50)+200,double(m));
+                //vecTab[k][l][m].setStart(double (k*50),double (l*50)+200,double(m));
                 //jakas tam funkcja, ale efekt jest :D
-                vecTab[k][l][m].setEnd(double ((k*50))*1.3,double (((l+1)*50)+170)*0.8,double(m));
-                boomLine(dc,vecTab[k][l][m],k*25,l*25,m*25,mat);
+                //vecTab[k][l][m].setEnd(double ((k*50))*1.3,double (((l+1)*50)+170)*0.8,double(m));
+                boomLine(dc,Vector3d(k*5,l*5+20,m,k*5*1.3,(((l+1)*5)+17)*0.8,m),k*25,l*25,m*25,mat);
             }
         }
     } 
-    
+
 }
 
 /*
