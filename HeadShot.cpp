@@ -73,12 +73,13 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
 
 
 //mno¿enie macierzy jednostkwej przez macierz projekcji
-    dc.SetDeviceOrigin(10,10);
+  
     tmp=pr*tmp;
-    dc.SetDeviceOrigin(0,0);
+
     
-    tmp=translate(w/4,h/4,0,tmp);
     tmp=scale(w/150,w/150,1,tmp);
+    tmp=translate(w/4,h/4,0,tmp);
+    
     *this=tmp*(*this);
     this->set(0,(this->getPX()*d)/this->getPZ());
     this->set(1,(this->getPY()*d)/this->getPZ());

@@ -335,9 +335,9 @@ void  PolaWektoroweFrm::Draw(){
     KrokY=wxAtod(WxEdit8->GetValue());
     KrokZ=wxAtod(WxEdit9->GetValue());
     //obrot z
-    mat=translate(-ZakresX/2+5,-ZakresY/2+5,0,mat);
+    mat=translate(-ZakresX/2,-ZakresY/2,0,mat);
     mat=rotate(0,0,WxScrollBar3->GetThumbPosition(),mat);
-    mat=translate(ZakresX/2-5,ZakresY/2-5,0,mat);
+    mat=translate(ZakresX/2,ZakresY/2,0,mat);
     //obrot x
     mat=translate(0,-ZakresY/2,-(0.7+ ZakresZ)/2,mat);
     mat=rotate(WxScrollBar1->GetThumbPosition(),0,0,mat);
