@@ -1,7 +1,7 @@
 # Project: PolaWektorowe
 # Compiler: Default GCC compiler
 # Compiler Type: MingW 3
-# Makefile created by wxDev-C++ IDE 7.4.2.569 on 07-12-15 15:40
+# Makefile created by wxDev-C++ IDE 7.4.2.569 on 07-12-15 15:48
 
 WXLIBNAME = wxmsw29u
 CPP       = g++.exe

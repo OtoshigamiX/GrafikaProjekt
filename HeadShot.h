@@ -70,6 +70,8 @@ public:
 
     //Normalizacja
     Vector3d normalize();
+    //dlugosc strzalek
+    Vector3d arrowLength(double arrowLen);
     
 private:
     //pierwsze 3 wspolrzedne to poczatek, kolejne 3 to koniec, o 2 dluzszy bo byly jakies magie z mnozeniem przez ta macierz poczatek : x,y,z,d i koniec : x,y,z,d

@@ -187,3 +187,19 @@ Vector3d Vector3d::normalize(){
 	return Vector3d();
 	
 }
+
+Vector3d Vector3d::arrowLength(double arrowLen){
+    //Vector3d vec;
+    double start[3];
+    double end[3];
+    this->getStart(start);
+    this->getEnd(end);
+    if(arrowLen != 0){
+        Vector3d vec(start[0],start[1],start[2],((end[0]-start[0])*arrowLen)+start[0],((end[1]-start[1])*arrowLen)+start[1],((end[2]-start[2])*arrowLen)+start[2]);
+		//vec.setStart(start[0],start[1],start[2]);
+	//	vec.setEnd(end[0]/len,end[1]/len,end[2]/len);
+	   return vec;
+	}
+	return Vector3d();
+	
+}

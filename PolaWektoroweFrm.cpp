@@ -387,9 +387,9 @@ void  PolaWektoroweFrm::Draw(){
                 //boomLine(dc,Vector3d(k*5,l*5+20,m,k*5*1.3,(((l+1)*5)+17)*0.8,m),k*25,l*25,m*25,mat);
                 if(WxToggleButton1->GetValue()){
                     if(WxCheckBox2->GetValue()){
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),0,0,255,mat);
+                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize().arrowLength(Matrix4::arrowLen),0,0,255,mat);
                     }else{
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)),255,0,0,mat);
+                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                     }
                 }
                 if(WxToggleButton2->GetValue()){
