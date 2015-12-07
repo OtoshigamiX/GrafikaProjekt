@@ -30,6 +30,8 @@ BEGIN_EVENT_TABLE(PolaWektoroweFrm,wxFrame)
 	
 	EVT_CLOSE(PolaWektoroweFrm::OnClose)
 	
+	EVT_COMMAND_SCROLL(ID_WXSCROLLBAR4,PolaWektoroweFrm::WxScrollBar4Scroll)
+	
 	EVT_COMMAND_SCROLL(ID_WXSCROLLBAR3,PolaWektoroweFrm::WxScrollBar3Scroll)
 	
 	EVT_COMMAND_SCROLL(ID_WXSCROLLBAR2,PolaWektoroweFrm::WxScrollBar2Scroll)
@@ -218,7 +220,6 @@ void PolaWektoroweFrm::CreateGUIControls()
 	WxBoxSizer10->Add(WxStaticText17, 0, wxALIGN_CENTER | wxALL, 5);
 
 	WxScrollBar4 = new wxScrollBar(this, ID_WXSCROLLBAR4, wxPoint(88, 5), wxSize(141, 18), wxSB_HORIZONTAL, wxDefaultValidator, _("WxScrollBar4"));
-	WxScrollBar4->Enable(false);
 	WxBoxSizer10->Add(WxScrollBar4, 0, wxALIGN_CENTER | wxALL, 5);
 
 	WxStaticText18 = new wxStaticText(this, ID_WXSTATICTEXT18, _("WxStaticText18"), wxPoint(239, 5), wxDefaultSize, 0, _("WxStaticText18"));
@@ -280,6 +281,8 @@ void PolaWektoroweFrm::CreateGUIControls()
 	WxScrollBar2->Enable(true);
 	WxScrollBar3->SetScrollbar(0, 1, 361, 1,true);
 	WxScrollBar3->Enable(true);
+	WxScrollBar4->SetScrollbar(0, 1, 100, 100,true);
+	WxScrollBar4->Enable(true);
 }
 ////////////////////////////////////////////////////////////Program wlasciwy////////////////////////////////////////////////////////////////////////////////////
 void PolaWektoroweFrm::OnClose(wxCloseEvent& event)
@@ -371,7 +374,7 @@ void  PolaWektoroweFrm::Draw(){
     
     */
     
-    
+    Matrix4::arrowLen=double (WxScrollBar4->GetThumbPosition())/100.0;
     if(ZakresX<ZakresY)Matrix4::endZ=ZakresX;
     else Matrix4::endZ=ZakresY;
     for(double i=StartX;i<ZakresX;i+=KrokX){
@@ -384,13 +387,17 @@ void  PolaWektoroweFrm::Draw(){
                 //boomLine(dc,Vector3d(k*5,l*5+20,m,k*5*1.3,(((l+1)*5)+17)*0.8,m),k*25,l*25,m*25,mat);
                 if(WxToggleButton1->GetValue()){
                     if(WxCheckBox2->GetValue()){
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),255,0,0,mat);
+                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),0,0,255,mat);
                     }else{
                         boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)),255,0,0,mat);
                     }
                 }
                 if(WxToggleButton2->GetValue()){
-                    boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)),i*25,j*25,k*25,mat);
+                    if(WxCheckBox2->GetValue()){
+                         boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize(),0,0,255,mat);
+                    }else{
+                         boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)),i*25,j*25,k*25,mat);
+                    }
                 }
                 if(WxToggleButton3->GetValue()){
                    boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)),i*25,j*25,k*25,mat);
@@ -509,5 +516,16 @@ void PolaWektoroweFrm::WxScrollBar3Scroll(wxScrollEvent& event)
     wxString str;
     str<<(WxScrollBar3->GetThumbPosition());
     WxStaticText6->SetLabel(str);
+    Draw();
+}
+
+/*
+ * WxScrollBar4Scroll
+ */
+void PolaWektoroweFrm::WxScrollBar4Scroll(wxScrollEvent& event)
+{
+	wxString str;
+    str<<(WxScrollBar4->GetThumbPosition());
+    WxStaticText18->SetLabel(str);
     Draw();
 }

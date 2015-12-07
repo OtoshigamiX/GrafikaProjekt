@@ -1,6 +1,7 @@
 #include "HeadShot.h"
 #include"Boom.h"
 int Matrix4::endZ=0;
+double Matrix4::arrowLen=1;
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
@@ -50,6 +51,9 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     //z jakiejs smiesznej strony, tyle, ¿e traktuje punkt 0,0 jako srodek ekranu, zreszta to z wykladu tak samo
     //Vector3d tmp1(this->getPX(),this->getPY(),this->getPZ(),this->get(3),this->getKX(),this->getKY(),this->getKZ(),this->get(7));
     int w,h;
+    //this->set(4,this->get(4)*Matrix4::arrowLen);
+    //this->set(5,this->get(5)*Matrix4::arrowLen);
+    //this->set(6,this->get(6)*Matrix4::arrowLen);
     *this=mat*(*this);
     dc.GetSize(&w,&h);
     pr.data[0][0]=1;
@@ -70,6 +74,7 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
 //mno¿enie macierzy jednostkwej przez macierz projekcji
     
     tmp=pr*tmp;
+
     tmp=scale(w/150,w/150,1,tmp);
     tmp=translate(w/4,h/4,0,tmp);
     *this=tmp*(*this);
@@ -171,7 +176,7 @@ Vector3d Vector3d::normalize(){
     this->getStart(start);
     this->getEnd(end);
     if(len != 0){
-        Vector3d vec(start[0],start[1],start[2],end[0]/len,end[1]/len,end[2]/len);
+        Vector3d vec(start[0],start[1],start[2],((end[0]-start[0])/len)+start[0],((end[1]-start[1])/len)+start[1],((end[2]-start[2])/len)+start[2]);
 		//vec.setStart(start[0],start[1],start[2]);
 	//	vec.setEnd(end[0]/len,end[1]/len,end[2]/len);
 	   return vec;

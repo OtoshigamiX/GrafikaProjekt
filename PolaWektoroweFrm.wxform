@@ -94,7 +94,7 @@ object frmNewForm: TfrmNewForm
       end
     end
     object WxBoxSizer2: TWxBoxSizer
-      Left = 538
+      Left = 525
       Top = 5
       Width = 383
       Height = 523
@@ -1504,9 +1504,9 @@ object frmNewForm: TfrmNewForm
           Height = 18
           PageSize = 0
           TabOrder = 1
+          EVT_COMMAND_SCROLL = 'WxScrollBar4Scroll'
           Wx_Class = 'wxScrollBar'
           Wx_ControlOrientation = wxControlVertical
-          Wx_Enabled = False
           Wx_GeneralStyle = []
           Wx_Hidden = False
           Wx_IDName = 'ID_WXSCROLLBAR4'
