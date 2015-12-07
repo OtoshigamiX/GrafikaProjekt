@@ -125,7 +125,7 @@ bool  Vector3d::getStart(double boom[3]){
 
 bool  Vector3d::getEnd(double boom[3]){
     if(ok){
-     boom[3]=cord[4]; boom[4]=cord[5]; boom[5]=cord[6];
+     boom[0]=cord[4]; boom[1]=cord[5]; boom[2]=cord[6];
     return true;
     }
     return false;
@@ -160,4 +160,22 @@ void Vector3d::set(int i, double val){
 }
 double Vector3d::get(int i) const{
     return cord[i];
+}
+
+//cos jest tu nie tak
+Vector3d Vector3d::normalize(){
+    //Vector3d vec;
+    double len = this->Length();
+    double start[3];
+    double end[3];
+    this->getStart(start);
+    this->getEnd(end);
+    if(len != 0){
+        Vector3d vec(start[0],start[1],start[2],end[0]/len,end[1]/len,end[2]/len);
+		//vec.setStart(start[0],start[1],start[2]);
+	//	vec.setEnd(end[0]/len,end[1]/len,end[2]/len);
+	   return vec;
+	}
+	return Vector3d();
+	
 }

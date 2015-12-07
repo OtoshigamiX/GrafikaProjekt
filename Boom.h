@@ -35,6 +35,7 @@ static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
      if(vec.get2D(dc,tmp,mat)){
          dc.SetPen(wxPen(RGB(R,G,B),1,wxPENSTYLE_SOLID));
          dc.DrawLine(tmp[0],tmp[1],tmp[2],tmp[3]);
+         
      }
 }
 //funkcje przekszta³caj¹ce z lab 5
