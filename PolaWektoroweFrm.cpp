@@ -263,8 +263,14 @@ void PolaWektoroweFrm::CreateGUIControls()
 	WxStaticText21 = new wxStaticText(this, ID_WXSTATICTEXT21, _("C"), wxPoint(263, 6), wxDefaultSize, 0, _("WxStaticText21"));
 	WxBoxSizer13->Add(WxStaticText21, 0, wxALIGN_CENTER | wxALL, 5);
 
-	WxEdit15 = new wxTextCtrl(this, ID_WXEDIT15, _("1.0"), wxPoint(284, 5), wxSize(45, 19), 0, wxDefaultValidator, _("WxEdit15"));
+	WxEdit15 = new wxTextCtrl(this, ID_WXEDIT15, _("1.0"), wxPoint(291, 5), wxSize(45, 19), 0, wxDefaultValidator, _("WxEdit15"));
 	WxBoxSizer13->Add(WxEdit15, 0, wxALIGN_CENTER | wxALL, 5);
+
+	WxStaticText23 = new wxStaticText(this, ID_WXSTATICTEXT23, _("D"), wxPoint(339, 6), wxDefaultSize, 0, _("WxStaticText23"));
+	WxBoxSizer13->Add(WxStaticText23, 0, wxALIGN_CENTER | wxALL, 5);
+
+	WxEdit16 = new wxTextCtrl(this, ID_WXEDIT16, _("1.0"), wxPoint(360, 5), wxSize(45, 19), 0, wxDefaultValidator, _("WxEdit16"));
+	WxBoxSizer13->Add(WxEdit16, 0, wxALIGN_CENTER | wxALL, 5);
 
 	SetTitle(_("PolaWektorowe"));
 	SetIcon(wxNullIcon);
@@ -354,69 +360,48 @@ void  PolaWektoroweFrm::Draw(){
     //mat=translate(w/2-ZakresX*w/300,h/2-ZakresY*w/300+100,0,mat);
     
     
-    // moja propozycja, ale nie dziala niestety, zawiera duze complexity
-   /* for(double i=wxAtod(WxEdit1->GetValue());i<=wxAtod(WxEdit4->GetValue());i=i+wxAtod(WxEdit7->GetValue())){
-        for(double j=wxAtod(WxEdit2->GetValue());j<=wxAtod(WxEdit5->GetValue());j=j+wxAtod(WxEdit8->GetValue())){
-            for(double k=wxAtod(WxEdit3->GetValue());k<=wxAtod(WxEdit6->GetValue());k=k+wxAtod(WxEdit9->GetValue())){
-                if(WxToggleButton1->GetValue()){
-                    boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)/10.0),255,0,0,mat);
-                }
-                if(WxToggleButton2->GetValue()){
-                    boomLine(dc,Vector3d(2.0+i*5,2.0+j*5,3.0+(k*5.0)/10.0,2*i*5,2*j*5,2.0*k),i*25,j*25,k*25,mat);
-                }
-                if(WxToggleButton3->GetValue()){
-                    boomLine(dc,Vector3d(i,j,k,2*i,2*j,(2.0*k)/10.0),i*25,j*25,k*25,mat);
-                }
-                if(WxToggleButton4->GetValue()){
-                    boomLine(dc,Vector3d(i,j,k,2*i,2*j,(2.0*k)/10.0),255,0,0,mat);
-                }
-                // WxStaticText22->SetLabel("zzzzz");
-            }
-        }
-    }
-    
-    */
-    
     Matrix4::arrowLen=double (WxScrollBar4->GetThumbPosition())/100.0;
     if(ZakresX<ZakresY)Matrix4::endZ=ZakresX;
     else Matrix4::endZ=ZakresY;
     for(double i=StartX;i<ZakresX;i+=KrokX){
         for(double j=StartY;j<ZakresY;j+=KrokY){
             for(double k=StartZ; k<ZakresZ;k+=KrokZ){
-                //takie dziwne rzeczy porobione ¿eby wyœwietla³o w jakims normalnym po³o¿eniu, tzn to dodawanie i mno¿enie
-                //vecTab[k][l][m].setStart(double (k*50),double (l*50)+200,double(m));
-                //jakas tam funkcja, ale efekt jest :D
-                //vecTab[k][l][m].setEnd(double ((k*50))*1.3,double (((l+1)*50)+170)*0.8,double(m));
-                //boomLine(dc,Vector3d(k*5,l*5+20,m,k*5*1.3,(((l+1)*5)+17)*0.8,m),k*25,l*25,m*25,mat);
-                if(WxToggleButton1->GetValue()){
-                    if(WxCheckBox2->GetValue()){
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize().arrowLength(Matrix4::arrowLen),0,0,255,mat);
-                    }else{
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
+                if(!WxCheckBox3->GetValue() || ((wxAtod(WxEdit13->GetValue())*i+wxAtod(WxEdit14->GetValue())*j+wxAtod(WxEdit15->GetValue())*k+wxAtod(WxEdit16->GetValue()))>0)){
+                    //takie dziwne rzeczy porobione ¿eby wyœwietla³o w jakims normalnym po³o¿eniu, tzn to dodawanie i mno¿enie
+                    //vecTab[k][l][m].setStart(double (k*50),double (l*50)+200,double(m));
+                    //jakas tam funkcja, ale efekt jest :D
+                    //vecTab[k][l][m].setEnd(double ((k*50))*1.3,double (((l+1)*50)+170)*0.8,double(m));
+                    //boomLine(dc,Vector3d(k*5,l*5+20,m,k*5*1.3,(((l+1)*5)+17)*0.8,m),k*25,l*25,m*25,mat);
+                    if(WxToggleButton1->GetValue()){
+                        if(WxCheckBox2->GetValue()){
+                            boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize().arrowLength(Matrix4::arrowLen),0,0,255,mat);
+                        }else{
+                            boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
+                        }
+                    }
+                    
+                    if(WxToggleButton2->GetValue()){
+                        if(WxCheckBox2->GetValue()){
+                             boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize().arrowLength(Matrix4::arrowLen),0,0,255,mat);
+                        }else{
+                             boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
+                        }
+                    }
+                    if(WxToggleButton3->GetValue()){
+                        if(WxCheckBox2->GetValue()){    
+                            boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).normalize().arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
+                        }else{
+                            boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
+                        }    
+                    }
+                    if(WxToggleButton4->GetValue()){
+                        if(WxCheckBox2->GetValue()){    
+                            boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).normalize().arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
+                        }else{
+                             boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
+                        }    
                     }
                 }
-                if(WxToggleButton2->GetValue()){
-                    if(WxCheckBox2->GetValue()){
-                         boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize().arrowLength(Matrix4::arrowLen),0,0,255,mat);
-                    }else{
-                         boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
-                    }
-                }
-                if(WxToggleButton3->GetValue()){
-                    if(WxCheckBox2->GetValue()){    
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).normalize().arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
-                    }else{
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
-                    }    
-                }
-                if(WxToggleButton4->GetValue()){
-                    if(WxCheckBox2->GetValue()){    
-                        boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).normalize().arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
-                    }else{
-                         boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
-                    }    
-                }
-                
             }
         }
     } 
