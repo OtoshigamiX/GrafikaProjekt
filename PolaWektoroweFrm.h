@@ -64,6 +64,10 @@ class PolaWektoroweFrm : public wxFrame
 		void WxScrollBar2Scroll(wxScrollEvent& event);
 		void WxScrollBar3Scroll(wxScrollEvent& event);
 		void WxScrollBar4Scroll(wxScrollEvent& event);
+		void WxButton1Click(wxCommandEvent& event);
+		
+		wxImage getImage();
+		wxImage * storedimage;
 		
 	private:
 		//Do not add custom control declarations between

@@ -3,3 +3,5 @@
 *.o
 Makefile.win
 *.layout
+Makefile.win
+*.o
