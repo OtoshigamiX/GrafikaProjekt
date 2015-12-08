@@ -23,6 +23,7 @@
 #endif
 #include "Boom.h"
 #include <wx/dcbuffer.h>
+#include <wx/event.h>
 //Do not add custom headers between 
 //Header Include Start and Header Include End.
 //wxDev-C++ designer will remove them. Add custom headers after the block.
@@ -52,6 +53,9 @@ class PolaWektoroweFrm : public wxFrame
 		virtual ~PolaWektoroweFrm();
 		void Rysuj(wxPaintEvent& event);
 		void Draw();
+		wxMouseEvent mouse;
+		void ScrollWheel(wxMouseEvent& event);
+
 		void PicPlaceUpdateUI(wxUpdateUIEvent& event);
 		void WxToggleButton1Click(wxCommandEvent& event);
 		void WxToggleButton2Click(wxCommandEvent& event);

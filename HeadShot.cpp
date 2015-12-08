@@ -1,7 +1,9 @@
 #include "HeadShot.h"
 #include"Boom.h"
+#include "PolaWektoroweFrm.h"
 int Matrix4::endZ=0;
 double Matrix4::arrowLen=1;
+int  Matrix4::mouseDelta=1;
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
@@ -75,9 +77,9 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
 //mno¿enie macierzy jednostkwej przez macierz projekcji
   
     tmp=pr*tmp;
-
-    
-    tmp=scale(w/150,w/150,1,tmp);
+    double scr=1;
+    if( Matrix4::mouseDelta <10 &&  Matrix4::mouseDelta>-10){ scr+= double(Matrix4::mouseDelta)/10;}
+    tmp=scale(w/150*scr,w/150*scr,1,tmp);
     tmp=translate(w/4,h/4,0,tmp);
     
     *this=tmp*(*this);

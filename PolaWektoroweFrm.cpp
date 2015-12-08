@@ -26,6 +26,7 @@
 BEGIN_EVENT_TABLE(PolaWektoroweFrm,wxFrame)
 	////Manual Code Start
 	EVT_PAINT(PolaWektoroweFrm::Rysuj)
+	EVT_MOUSEWHEEL(PolaWektoroweFrm::ScrollWheel)
 	////Manual Code End
 	
 	EVT_CLOSE(PolaWektoroweFrm::OnClose)
@@ -46,7 +47,6 @@ BEGIN_EVENT_TABLE(PolaWektoroweFrm,wxFrame)
 	EVT_UPDATE_UI(ID_PICPLACE,PolaWektoroweFrm::PicPlaceUpdateUI)
 END_EVENT_TABLE()
 ////Event Table End
-
 PolaWektoroweFrm::PolaWektoroweFrm(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &position, const wxSize& size, long style)
 : wxFrame(parent, id, title, position, size, style)
 {
@@ -289,10 +289,11 @@ void PolaWektoroweFrm::CreateGUIControls()
 	WxScrollBar2->Enable(true);
 	WxScrollBar3->SetScrollbar(0, 1, 361, 1,true);
 	WxScrollBar3->Enable(true);
-	WxScrollBar4->SetScrollbar(0, 1, 101, 101,true);
+	WxScrollBar4->SetScrollbar(0, 1, 201, 1,true);
 	WxScrollBar4->SetThumbPosition(100);
 	WxScrollBar4->Enable(true);
 	wxInitAllImageHandlers(); 
+	//mysz
 }
 ////////////////////////////////////////////////////////////Program wlasciwy////////////////////////////////////////////////////////////////////////////////////
 void PolaWektoroweFrm::OnClose(wxCloseEvent& event)
@@ -309,6 +310,7 @@ void  PolaWektoroweFrm::Draw(){
     wxClientDC clientDC(PicPlace);
     //jak siê w³¹czy bufferedDC to translate w funkcji rzutuj¹cej ma problem z GetSize(), bo buffered dc cache'uje wartosci, bug jest potwierdzony na stonie biblioteki
     wxBufferedDC dc(&clientDC);
+   
     //poni¿sze tylko gdy chcemy obliczaæ w,h za kazdym razem i korzystamy w funkcji rzutuj¹cej tak, ¿e pobieramy w i h z Matrix4 mat
     int w,h;
     dc.Clear();
@@ -406,6 +408,8 @@ void  PolaWektoroweFrm::Draw(){
             }
         }
     } 
+int delta = mouse.GetWheelDelta();
+dc.DrawText(wxString::Format(wxT("%i"), Matrix4::mouseDelta),10,10);
 
 }
 
@@ -559,4 +563,8 @@ void PolaWektoroweFrm::WxButton1Click(wxCommandEvent& event)
     //wxFileOutputStream out(saveDialog.GetPath());
     savimage.SaveFile(docpath);
     //out.Close();
+}
+void PolaWektoroweFrm::ScrollWheel(wxMouseEvent& event){
+    if( Matrix4::mouseDelta <10 &&  Matrix4::mouseDelta>-10)
+     Matrix4::mouseDelta += event.GetWheelRotation()/event.GetWheelDelta();
 }
