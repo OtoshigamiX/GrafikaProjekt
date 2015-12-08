@@ -565,6 +565,6 @@ void PolaWektoroweFrm::WxButton1Click(wxCommandEvent& event)
     //out.Close();
 }
 void PolaWektoroweFrm::ScrollWheel(wxMouseEvent& event){
-    if( Matrix4::mouseDelta <10 &&  Matrix4::mouseDelta>-10)
+    if( Matrix4::mouseDelta+event.GetWheelRotation()/event.GetWheelDelta() <10 && Matrix4::mouseDelta+event.GetWheelRotation()/event.GetWheelDelta() >-10 )
      Matrix4::mouseDelta += event.GetWheelRotation()/event.GetWheelDelta();
 }

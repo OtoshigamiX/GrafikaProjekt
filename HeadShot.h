@@ -82,6 +82,7 @@ private:
     static double maxVec(Vector3d vec[],int len);
     //zwraca dlugosc najkrotszego wektora
     static double minVec(Vector3d vec[],int len);
+    
 
 
 };

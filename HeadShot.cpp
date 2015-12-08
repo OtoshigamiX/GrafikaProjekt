@@ -4,9 +4,11 @@
 int Matrix4::endZ=0;
 double Matrix4::arrowLen=1;
 int  Matrix4::mouseDelta=1;
+
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
+    ok=false;
 }
  
 Vector3d::Vector3d(double x,double y, double z){
@@ -78,9 +80,9 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
   
     tmp=pr*tmp;
     double scr=1;
-    if( Matrix4::mouseDelta <10 &&  Matrix4::mouseDelta>-10){ scr+= double(Matrix4::mouseDelta)/10;}
+     scr+= double(Matrix4::mouseDelta)/10;
     tmp=scale(w/150*scr,w/150*scr,1,tmp);
-    tmp=translate(w/4,h/4,0,tmp);
+    tmp=translate(w/2-w/4*scr,h/2-h/4*scr,0,tmp);
     
     *this=tmp*(*this);
     this->set(0,(this->getPX()*d)/this->getPZ());
