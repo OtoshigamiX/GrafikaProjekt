@@ -54,6 +54,9 @@ class PolaWektoroweFrm : public wxFrame
 		void Rysuj(wxPaintEvent& event);
 		void Draw();
 		wxMouseEvent mouse;
+		int animationInt;
+		void Aux1(wxMouseEvent& event);
+        void Aux2(wxMouseEvent& event);
 		void ScrollWheel(wxMouseEvent& event);
 
 		void PicPlaceUpdateUI(wxUpdateUIEvent& event);
@@ -72,12 +75,15 @@ class PolaWektoroweFrm : public wxFrame
 		
 		wxImage getImage();
 		wxImage * storedimage;
+		void WxCheckBox4Click(wxCommandEvent& event);
+		void WxCheckBox4UpdateUI(wxUpdateUIEvent& event);
 		
 	private:
 		//Do not add custom control declarations between
 		//GUI Control Declaration Start and GUI Control Declaration End.
 		//wxDev-C++ will remove them. Add custom code after the block.
 		////GUI Control Declaration Start
+		wxCheckBox *WxCheckBox4;
 		wxTextCtrl *WxEdit16;
 		wxStaticText *WxStaticText23;
 		wxTextCtrl *WxEdit15;
@@ -155,6 +161,7 @@ class PolaWektoroweFrm : public wxFrame
 		enum
 		{
 			////GUI Enum Control ID Start
+			ID_WXCHECKBOX4 = 1072,
 			ID_WXEDIT16 = 1071,
 			ID_WXSTATICTEXT23 = 1070,
 			ID_WXEDIT15 = 1066,

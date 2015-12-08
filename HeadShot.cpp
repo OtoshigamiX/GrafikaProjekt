@@ -4,7 +4,7 @@
 int Matrix4::endZ=0;
 double Matrix4::arrowLen=1;
 int  Matrix4::mouseDelta=1;
-
+wxPoint Matrix4::stP=wxPoint(0,0),Matrix4::enP=wxPoint(0,0);
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
     cord[3]=1.0; cord[7]=1.0;
