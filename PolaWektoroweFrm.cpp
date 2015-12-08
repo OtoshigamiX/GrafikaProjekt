@@ -53,6 +53,7 @@ PolaWektoroweFrm::PolaWektoroweFrm(wxWindow *parent, wxWindowID id, const wxStri
 : wxFrame(parent, id, title, position, size, style)
 {
 	CreateGUIControls();
+	SetBackgroundColour(*wxLIGHT_GREY);
 }
 
 PolaWektoroweFrm::~PolaWektoroweFrm()
