@@ -29,6 +29,10 @@ static double wxAtod(wxString a){
     return n;*/
 }
 
+//Funkcja do przyciecia, bazuje na wartosciach progowych, robi wedlug tego co zawarte w pdfie
+static double trim(double coord1,double coord2,double diff){
+    return abs(coord2-coord1)<abs(diff) ? coord2 : coord1+diff;
+}
 
 static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
      double tmp[4];

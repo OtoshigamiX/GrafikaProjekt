@@ -77,6 +77,8 @@ class PolaWektoroweFrm : public wxFrame
 		wxImage * storedimage;
 		void WxCheckBox4Click(wxCommandEvent& event);
 		void WxCheckBox4UpdateUI(wxUpdateUIEvent& event);
+		void WxCheckBox1Click(wxCommandEvent& event);
+		void WxCheckBox2Click(wxCommandEvent& event);
 		
 	private:
 		//Do not add custom control declarations between
