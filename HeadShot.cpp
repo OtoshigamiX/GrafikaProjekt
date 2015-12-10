@@ -28,7 +28,7 @@ Vector3d::Vector3d(double tab[3]){
 }
 
 
-bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
+bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     static const double d = 0.5;
     Matrix4 pr,tmp;
     // ze strony http://wazniak.mimuw.edu.pl/index.php?title=GKIW_Modu%C5%82_5_-_Reprezentacja_przestrzeni_tr%C3%B3jwymiarowej_na_p%C5%82aszczy%C5%BAnie
@@ -55,10 +55,12 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     //z jakiejs smiesznej strony, tyle, ¿e traktuje punkt 0,0 jako srodek ekranu, zreszta to z wykladu tak samo
     //Vector3d tmp1(this->getPX(),this->getPY(),this->getPZ(),this->get(3),this->getKX(),this->getKY(),this->getKZ(),this->get(7));
     int w,h;
+    double atmp[8];
     //this->set(4,this->get(4)*Matrix4::arrowLen);
     //this->set(5,this->get(5)*Matrix4::arrowLen);
     //this->set(6,this->get(6)*Matrix4::arrowLen);
-
+    getArrowhead();
+    
     *this=mat*(*this);
     dc.GetSize(&w,&h);
     pr.data[0][0]=1;
@@ -68,6 +70,27 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     pr.data[3][2]=1.0/d;
     this->set(2,0.7+ this->getPZ()/ (Matrix4::endZ*1.5));
     this->set(6,0.7+ this->getKZ()/ (Matrix4::endZ*1.5));
+    
+    std::fill(atmp, atmp+7, 0);
+    for (unsigned int i=0;i<4;i++)
+      {
+      atmp[i]=0.0;
+       for (unsigned int j=0;j<4;j++){
+            atmp[i]=atmp[i]+(mat.data[i][j]*arrowh[j]);
+            atmp[i+4]=atmp[i+4]+(mat.data[i][j]*arrowh[j+4]);
+       }
+      }
+          arrowh[0]=atmp[0];
+      arrowh[1]=atmp[1];
+      arrowh[2]=atmp[2];
+      arrowh[3]=atmp[3];
+      arrowh[4]=atmp[4];
+      arrowh[5]=atmp[5];
+      arrowh[6]=atmp[6];
+      arrowh[7]=atmp[7];
+    
+    //arrowh[2]=0.7+ arrowh[2]/ (Matrix4::endZ*1.5);
+    //arrowh[6]=0.7+ arrowh[6]/ (Matrix4::endZ*1.5);
     //mat = scale(w/4, h/4, 1, mat);
     //zrobiony translate podwojny bo rzutowanie sie odbywa tak jakby widz by³ w punkcie 0,0,0.5, a my chcemy w œrodku ekranu
     //ponizsze u¿ywa globalnego width i height zapisanego w klasie Matrix4
@@ -77,12 +100,13 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
 
 
 //mno¿enie macierzy jednostkwej przez macierz projekcji
-  
+   
     tmp=pr*tmp;
     double scr=1;
      scr+= double(Matrix4::mouseDelta)/10;
     tmp=scale(w/150*scr,w/150*scr,1,tmp);
     tmp=translate(w/2-w/4*scr,h/2-h/4*scr,0,tmp);
+    
     
     *this=tmp*(*this);
     this->set(0,(this->getPX()*d)/this->getPZ());
@@ -94,10 +118,45 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],Matrix4 &mat){
     this->set(6,(d));
     this->set(7,1);
     
+    
+    std::fill(atmp, atmp+7, 0);
+    
+    for (unsigned int i=0;i<4;i++)
+      {
+      atmp[i]=0.0;
+       for (unsigned int j=0;j<4;j++){
+            atmp[i]=atmp[i]+(tmp.data[i][j]*arrowh[j]);
+            atmp[i+4]=atmp[i+4]+(tmp.data[i][j]*arrowh[j+4]);
+       }
+      }
+      arrowh[0]=atmp[0];
+      arrowh[1]=atmp[1];
+      arrowh[2]=atmp[2];
+      arrowh[3]=atmp[3];
+      arrowh[4]=atmp[4];
+      arrowh[5]=atmp[5];
+      arrowh[6]=atmp[6];
+      arrowh[7]=atmp[7];
+    
+    
+    arrowh[0]=(arrowh[0]*d)/arrowh[2];
+    arrowh[1]=(arrowh[1]*d)/arrowh[2];
+    arrowh[2]=d;
+    arrowh[3]=1;
+    arrowh[4]=(arrowh[4]*d)/arrowh[6];
+    arrowh[5]=(arrowh[5]*d)/arrowh[6];
+    arrowh[6]=d;
+    arrowh[7]=1;
+    
     tab[0]=this->getPX();
     tab[1]=this->getPY();
     tab[2]=this->getKX();
     tab[3]=this->getKY();
+    
+    atab[0]=arrowh[0];
+    atab[1]=arrowh[1];
+    atab[2]=arrowh[4];
+    atab[3]=arrowh[5];
     //z wykladu
     /*tab[0]=(this->getPX()*d)/this->getPZ();
     tab[1]=(this->getPY()*d)/this->getPZ();
@@ -206,4 +265,17 @@ Vector3d Vector3d::arrowLength(double arrowLen){
 	}
 	return Vector3d();
 	
+}
+
+void Vector3d::getArrowhead(){
+    double h = 0.2*sqrt(3);double w=0.1;
+    Vector3d U = normalize();
+    arrowh[0]=getKX()-h*(U.getKX()-U.getPX())-w*(U.getKY()-U.getPY());
+    arrowh[1]=getKY()-h*(U.getKY()-U.getPY())+w*(U.getKX()-U.getPX());
+    arrowh[2]=getKZ()-h*(U.getKZ()-U.getPZ());
+    arrowh[3]=1.0;
+    arrowh[4]=getKX()-h*(U.getKX()-U.getPX())+w*(U.getKY()-U.getPY());
+    arrowh[5]=getKY()-h*(U.getKY()-U.getPY())-w*(U.getKX()-U.getPX());
+    arrowh[6]=getKZ()-h*(U.getKZ()-U.getPZ());
+    arrowh[7]=1.0;
 }

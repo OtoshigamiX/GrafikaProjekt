@@ -38,7 +38,7 @@ public:
     //funkcje
     
     //zwraca wspolrzedne w 2D
-    bool get2D(wxDC &dc, double tab[4],Matrix4 &mat);
+    bool get2D(wxDC &dc, double tab[4],double atab[4],Matrix4 &mat);
     // zwraca wartosc ok
     bool isOk();
     //zwraca dlugosc wektora
@@ -72,6 +72,10 @@ public:
     Vector3d normalize();
     //dlugosc strzalek
     Vector3d arrowLength(double arrowLen);
+    //zdobywanie strzalek
+    void getArrowhead();
+    
+    double arrowh[8]; //wspolrzedne xyz jednego boku, xyz drugiego
     
 private:
     //pierwsze 3 wspolrzedne to poczatek, kolejne 3 to koniec, o 2 dluzszy bo byly jakies magie z mnozeniem przez ta macierz poczatek : x,y,z,d i koniec : x,y,z,d
