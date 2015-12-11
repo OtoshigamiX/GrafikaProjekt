@@ -347,7 +347,7 @@ void  PolaWektoroweFrm::Draw(){
     dc.SetPen(wxPen(RGB(0,255,0),1,wxPENSTYLE_SOLID));
     dc.DrawLine(40,40,390,340);*/
 
-     double StartX,StartY,StartZ,ZakresX,ZakresY,ZakresZ, KrokX,KrokY, KrokZ;
+     double StartX,StartY,StartZ,ZakresX,ZakresY,ZakresZ, KrokX,KrokY, KrokZ,temp_len;
     StartX=wxAtod(WxEdit1->GetValue());
     StartY=wxAtod(WxEdit2->GetValue());
     StartY=wxAtod(WxEdit3->GetValue());
@@ -394,7 +394,7 @@ void  PolaWektoroweFrm::Draw(){
     Matrix4::arrowLen=double (WxScrollBar4->GetThumbPosition())/100.0;
     if(ZakresX<ZakresY)Matrix4::endZ=ZakresX;
     else Matrix4::endZ=ZakresY;
- 
+    
     for(double i=StartX;i<ZakresX;i+=KrokX){
         for(double j=StartY;j<ZakresY;j+=KrokY){
             for(double k=StartZ; k<ZakresZ;k+=KrokZ){
@@ -409,7 +409,9 @@ void  PolaWektoroweFrm::Draw(){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())*i,KrokX),trim(j,wxAtod(WxEdit11->GetValue())*j,KrokY),trim(k,(wxAtod(WxEdit12->GetValue())*i),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
                             if(WxCheckBox2->GetValue()){
-                                boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),0,0,255,mat);
+                                //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),0,0,255,mat);
+                                temp_len = Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).Length();
+                                boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),temp_len,100.0,mat);
                             }else{
                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                             }
@@ -421,7 +423,9 @@ void  PolaWektoroweFrm::Draw(){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())*sin(i),KrokX),trim(j,wxAtod(WxEdit11->GetValue())*cos(j),KrokY),trim(k,(wxAtod(WxEdit12->GetValue())*k),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
                             if(WxCheckBox2->GetValue()){
-                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize(),0,0,255,mat);
+                                 temp_len=Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).Length();
+                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize(),temp_len,100.0,mat);
+                                 //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize(),0,0,255,mat);
                             }else{
                                  boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
                             }
@@ -432,7 +436,9 @@ void  PolaWektoroweFrm::Draw(){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())*k,KrokX),trim(j,wxAtod(WxEdit11->GetValue())*i,KrokY),trim(k,(wxAtod(WxEdit12->GetValue())*j),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
                             if(WxCheckBox2->GetValue()){    
-                                boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).normalize(),i*25,j*25,k*25,mat);
+                                temp_len=Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).Length();
+                                boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).normalize(),temp_len,100.0,mat);
+                                //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).normalize(),i*25,j*25,k*25,mat);
                             }else{
                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
                             } 
@@ -442,8 +448,10 @@ void  PolaWektoroweFrm::Draw(){
                         if(WxCheckBox1->GetValue()){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())+i,KrokX),trim(j,wxAtod(WxEdit11->GetValue())+j,KrokY),trim(k,(wxAtod(WxEdit12->GetValue())+k),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
-                            if(WxCheckBox2->GetValue()){    
-                                boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).normalize(),i*25,j*25,k*25,mat);
+                            if(WxCheckBox2->GetValue()){ 
+                                temp_len=    Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).Length();
+                                boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).normalize(),temp_len,100.0,mat);
+                                //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).normalize(),i*25,j*25,k*25,mat);
                             }else{
                                  boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
                             } 

@@ -44,6 +44,24 @@ static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
         //dc.DrawLine(atmp[2],atmp[3],tmp[2],tmp[3]);
      }
 }
+
+static void boomLine(wxDC &dc,Vector3d vec, double col,double max,Matrix4 &mat){
+     double tmp[4];
+     double atmp[4];
+     double force = col/max;
+     if(force>1.0){force=1.0;}
+     if(vec.get2D(dc,tmp,atmp,mat)){
+            if(force<=0.5){
+         dc.SetPen(wxPen(RGB(0,(force*2)*255,(1-force*2)*255),1,wxPENSTYLE_SOLID));}
+         else{
+        dc.SetPen(wxPen(RGB(255,(2-force*2)*255,0),1,wxPENSTYLE_SOLID));
+            }
+         dc.DrawLine(tmp[0],tmp[1],tmp[2],tmp[3]);
+        // dc.DrawLine(atmp[0],atmp[1],tmp[2],tmp[3]);
+        //dc.DrawLine(atmp[2],atmp[3],tmp[2],tmp[3]);
+     }
+}
+
 //funkcje przekszta³caj¹ce z lab 5
 static Matrix4 translate(double dx, double dy, double dz, Matrix4 &t) {
     Matrix4 tr;
