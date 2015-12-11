@@ -99,7 +99,7 @@ void PolaWektoroweFrm::CreateGUIControls()
 	WxToggleButton4 = new wxToggleButton(this, ID_WXTOGGLEBUTTON4, _("4"), wxPoint(111, 20), wxSize(25, 25), 0, wxDefaultValidator, _("WxToggleButton4"));
 	WxStaticBoxSizer1->Add(WxToggleButton4, 0, wxALIGN_CENTER | wxALL, 5);
 
-	WxStaticText22 = new wxStaticText(this, ID_WXSTATICTEXT22, _("Wybrana funkcja"), wxPoint(146, 24), wxDefaultSize, 0, _("WxStaticText22"));
+	WxStaticText22 = new wxStaticText(this, ID_WXSTATICTEXT22, _("Wybrana funkcja                    "), wxPoint(146, 24), wxDefaultSize, 0, _("WxStaticText22"));
 	WxStaticBoxSizer1->Add(WxStaticText22, 0, wxALIGN_CENTER | wxALL, 5);
 
 	WxBoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
