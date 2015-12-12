@@ -40,6 +40,10 @@ static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
      if(vec.get2D(dc,tmp,atmp,mat)){
          dc.SetPen(wxPen(RGB(R,G,B),1,wxPENSTYLE_SOLID));
          dc.DrawLine(tmp[0],tmp[1],tmp[2],tmp[3]);
+         dc.DrawLine(tmp[2],tmp[3],tmp[2]+2,tmp[3]);
+         dc.DrawLine(tmp[2],tmp[3],tmp[2],tmp[3]+2);
+         dc.DrawLine(tmp[2],tmp[3],tmp[2]-2,tmp[3]);
+         dc.DrawLine(tmp[2],tmp[3],tmp[2],tmp[3]-2);
         // dc.DrawLine(atmp[0],atmp[1],tmp[2],tmp[3]);
         //dc.DrawLine(atmp[2],atmp[3],tmp[2],tmp[3]);
      }
@@ -59,6 +63,10 @@ static void boomLine(wxDC &dc,Vector3d vec, double col,double max,Matrix4 &mat){
          dc.DrawLine(tmp[0],tmp[1],tmp[2],tmp[3]);
         // dc.DrawLine(atmp[0],atmp[1],tmp[2],tmp[3]);
         //dc.DrawLine(atmp[2],atmp[3],tmp[2],tmp[3]);
+        dc.DrawLine(tmp[2],tmp[3],tmp[2]+2,tmp[3]);
+         dc.DrawLine(tmp[2],tmp[3],tmp[2],tmp[3]+2);
+         dc.DrawLine(tmp[2],tmp[3],tmp[2]-2,tmp[3]);
+         dc.DrawLine(tmp[2],tmp[3],tmp[2],tmp[3]-2);
      }
 }
 
