@@ -19,7 +19,10 @@
 #include <wx/tglbtn.h>
 #include <wx/sizer.h>
 #include <wx/colour.h>
+
 //Parser doubli z wxStringa
+//Funkcja wxAtod przyjmuje obiekt typu wxString. Wykonujac przeksztalcenia, zwraca ona wartosc zawarta w obiekcie typu wxString
+//jako double.
 static double wxAtod(wxString a){
         double value;
         a.ToDouble(&value);
@@ -29,7 +32,11 @@ static double wxAtod(wxString a){
     return n;*/
 }
 
-//Funkcja do przyciecia, bazuje na wartosciach progowych, robi wedlug tego co zawarte w pdfie
+/*
+    Funkcja trim jest funkcja statyczna, ktora przyjmuje trzy wartosci - wszystkie typu double. Sa to dwie wspolrzedne,
+    poczatkowa i koncowa (coord1/coord2), oraz odleglosc miedzy wezlami (diff). Sprawdza ona czy roznica wspolrzednych jest mniejsza
+    od odleglosci miedzywezlowej. Jesli tak, to zwracana jest koncowa wspolrzedna. Jesli nie, zwracana jest poczatkowa wspolrzedna + odleglosc.
+*/
 static double trim(double coord1,double coord2,double diff){
     return abs(coord2-coord1)<abs(diff) ? coord2 : coord1+diff;
 }
@@ -49,6 +56,15 @@ static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
      }
 }
 
+
+/*
+    Funkcja przeladowana boomLine przyjmuje kilka argumentow, zwraca nic. Przyjmuje referencje do obiektu wxDC, obiekt 
+    Vector3d vec, dwie wartosci double - col i max, oraz referencje do obiektu Matrix4 mat.
+    Oblicza ona sile danego wektora - dzielac kolor przez wartosc maksymalna (arbitralna).
+    Maksymalna moc to 1. Gdy udaje sie uzyskac parametry 2d wektora, malujemy linie wyliczajac kolor wedlug pewneych parametrow,
+    starajac sie uzyskac pelne spektrum, od niebieskiego do czerwonego.
+    
+*/
 static void boomLine(wxDC &dc,Vector3d vec, double col,double max,Matrix4 &mat){
      double tmp[4];
      double atmp[4];
