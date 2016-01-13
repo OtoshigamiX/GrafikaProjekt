@@ -59,7 +59,7 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     //this->set(4,this->get(4)*Matrix4::arrowLen);
     //this->set(5,this->get(5)*Matrix4::arrowLen);
     //this->set(6,this->get(6)*Matrix4::arrowLen);
-    getArrowhead();
+    getArrowhead(); //do strzalek
     
     *this=mat*(*this);
     dc.GetSize(&w,&h);
@@ -71,6 +71,7 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     this->set(2,0.7+ this->getPZ()/ (Matrix4::endZ*1.5));
     this->set(6,0.7+ this->getKZ()/ (Matrix4::endZ*1.5));
     
+    //do strzalek
     std::fill(atmp, atmp+7, 0);
     for (unsigned int i=0;i<4;i++)
       {
@@ -88,6 +89,7 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
       arrowh[5]=atmp[5];
       arrowh[6]=atmp[6];
       arrowh[7]=atmp[7];
+    //do strzalek end
     
     //arrowh[2]=0.7+ arrowh[2]/ (Matrix4::endZ*1.5);
     //arrowh[6]=0.7+ arrowh[6]/ (Matrix4::endZ*1.5);
@@ -118,7 +120,7 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     this->set(6,(d));
     this->set(7,1);
     
-    
+    //do strzalek START
     std::fill(atmp, atmp+7, 0);
     
     for (unsigned int i=0;i<4;i++)
@@ -147,16 +149,19 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     arrowh[5]=(arrowh[5]*d)/arrowh[6];
     arrowh[6]=d;
     arrowh[7]=1;
+    //do strzalek END
     
     tab[0]=this->getPX();
     tab[1]=this->getPY();
     tab[2]=this->getKX();
     tab[3]=this->getKY();
     
+    //do strzalek START
     atab[0]=arrowh[0];
     atab[1]=arrowh[1];
     atab[2]=arrowh[4];
     atab[3]=arrowh[5];
+    //do strzalek END
     //z wykladu
     /*tab[0]=(this->getPX()*d)/this->getPZ();
     tab[1]=(this->getPY()*d)/this->getPZ();
@@ -233,7 +238,8 @@ double Vector3d::get(int i) const{
     return cord[i];
 }
 
-//cos jest tu nie tak
+//Funkcja normalize nie przyjmuje nic, zwraca obiekt Vector3d - dokonuje on normalizacji, na wektorze, z którego wykonana zostala
+// ta funkcja, a nastepnie zwraca otrzymany, znormalizowany nowy wektor.
 Vector3d Vector3d::normalize(){
     //Vector3d vec;
     double len = this->Length();
@@ -251,6 +257,7 @@ Vector3d Vector3d::normalize(){
 	
 }
 
+
 Vector3d Vector3d::arrowLength(double arrowLen){
     //Vector3d vec;
     double start[3];
@@ -267,6 +274,8 @@ Vector3d Vector3d::arrowLength(double arrowLen){
 	
 }
 
+//Funkcja getArrowhead() nic nie zwraca, miala za zadanie uzupelnic lokalizacje punktow grotow strzalki, ale nie dziala
+//Zapisuje ona wyniki dzialan w tablicy arrowh, ktora jest w kazdym obiekcie Vector3d. Nie przyjmuje zadnych argumentow.
 void Vector3d::getArrowhead(){
     double h = 0.2*sqrt(3);double w=0.1;
     Vector3d U = normalize();
