@@ -2,8 +2,8 @@
 #include"Boom.h"
 #include "PolaWektoroweFrm.h"
 int Matrix4::endZ=0;
-double Matrix4::arrowLen=1;
-int  Matrix4::mouseDelta=1;
+double Matrix4::arrowLen=1; 
+int  Matrix4::mouseDelta=1; // wartoœæ powiêkszenia za pomoc¹ scrolla, domyœlnie 1 czyli niepowiêkszony obiekt
 wxPoint Matrix4::stP=wxPoint(0,0),Matrix4::enP=wxPoint(0,0);
 Vector3d::Vector3d(){
     std::fill(cord, cord+7, 0);
@@ -60,14 +60,16 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     //this->set(5,this->get(5)*Matrix4::arrowLen);
     //this->set(6,this->get(6)*Matrix4::arrowLen);
     getArrowhead();
-    
+    //przemono¿enie punktów przez dotychczasow¹ macierz przekszta³cen
     *this=mat*(*this);
     dc.GetSize(&w,&h);
+	//stworzenie macierzy rzutowania
     pr.data[0][0]=1;
     pr.data[1][1]=1;
     pr.data[2][2]=1;
     pr.data[3][3]=0;
     pr.data[3][2]=1.0/d;
+	// odpowiednie zeskalowanie osi Z
     this->set(2,0.7+ this->getPZ()/ (Matrix4::endZ*1.5));
     this->set(6,0.7+ this->getKZ()/ (Matrix4::endZ*1.5));
     
@@ -99,16 +101,18 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     mat=translate(mat.getWinW()/2,mat.getWinH()/2,0,mat);*/
 
 
-//mno¿enie macierzy jednostkwej przez macierz projekcji
+	//mno¿enie macierzy jednostkowej przez macierz projekcji
    
     tmp=pr*tmp;
+	//skalowanie i przesuwanie zrzutowanych punktów, ¿eby by³o na œrodku ekranu + skalowanie ze scrolla
     double scr=1;
      scr+= double(Matrix4::mouseDelta)/10;
     tmp=scale(w/150*scr,w/150*scr,1,tmp);
     tmp=translate(w/2-w/4*scr,h/2-h/4*scr,0,tmp);
     
-    
+    //przemno¿enie punktów przez powy¿sz¹ macierz
     *this=tmp*(*this);
+	//znormalizowanie punktów
     this->set(0,(this->getPX()*d)/this->getPZ());
     this->set(1,(this->getPY()*d)/this->getPZ());
     this->set(2,(d));
@@ -233,7 +237,6 @@ double Vector3d::get(int i) const{
     return cord[i];
 }
 
-//cos jest tu nie tak
 Vector3d Vector3d::normalize(){
     //Vector3d vec;
     double len = this->Length();

@@ -33,7 +33,7 @@ static double wxAtod(wxString a){
 static double trim(double coord1,double coord2,double diff){
     return abs(coord2-coord1)<abs(diff) ? coord2 : coord1+diff;
 }
-
+//funkcja rysuj¹ca wektor o zadanym kolorze RGB
 static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
      double tmp[4];
      double atmp[4];
@@ -48,7 +48,7 @@ static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
         //dc.DrawLine(atmp[2],atmp[3],tmp[2],tmp[3]);
      }
 }
-
+//funkcja rysuj¹ca wektory o odpowiednim kolorze dla funkcji zaznaczj¹cej d³ugoœæ wektorów za pomoc¹ kolorów
 static void boomLine(wxDC &dc,Vector3d vec, double col,double max,Matrix4 &mat){
      double tmp[4];
      double atmp[4];
@@ -71,6 +71,8 @@ static void boomLine(wxDC &dc,Vector3d vec, double col,double max,Matrix4 &mat){
 }
 
 //funkcje przekszta³caj¹ce z lab 5
+
+//translacja o wektor
 static Matrix4 translate(double dx, double dy, double dz, Matrix4 &t) {
     Matrix4 tr;
     
@@ -84,6 +86,7 @@ static Matrix4 translate(double dx, double dy, double dz, Matrix4 &t) {
     t=tr*t;
     return t;
 }
+//skalowanie
 static Matrix4 scale(double sx, double sy, double sz, Matrix4 &t) {   
     Matrix4 tr;
     
@@ -94,6 +97,7 @@ static Matrix4 scale(double sx, double sy, double sz, Matrix4 &t) {
     t=tr*t;
     return t;
 }
+//obracanie
 static Matrix4 rotate(double phi, double psi, double theta, Matrix4 &t) {
     phi *= M_PI/180.;  psi *= M_PI/180.;  theta *= M_PI/180.;
 

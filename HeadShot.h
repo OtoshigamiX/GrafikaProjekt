@@ -107,7 +107,7 @@ public:
     //wartosci wysokosci i szerokosci okna
     int winH;
     int winW;
-    
+    //konstruktor
     Matrix4()
     {
      data[0][0]=1.0; data[0][1]=0.0; data[0][2]=0.0; data[0][3]=0.0;
@@ -117,7 +117,7 @@ public:
      winW=400;
     winH=300;
     }
-    
+    //wypisywanie macierzy
     void Print(void)
     {
      printf("\n|%2.3lf,%2.3lf,%2.3lf,%2.3lf|\n",data[0][0], data[0][1], data[0][2], data[0][3]);
@@ -125,7 +125,7 @@ public:
      printf("|%2.3lf,%2.3lf,%2.3lf,%2.3lf|\n",data[2][0], data[2][1], data[2][2], data[2][3]);
      printf("|%2.3lf,%2.3lf,%2.3lf,%2.3lf|\n",data[3][0], data[3][1], data[3][2], data[2][3]);
     }
-    
+    // prze³adowanie operatora mno¿enia tak, ¿eby mno¿y³o macierze
     Matrix4 operator* (const Matrix4 gMatrix)
     {
      int i,j,k;
