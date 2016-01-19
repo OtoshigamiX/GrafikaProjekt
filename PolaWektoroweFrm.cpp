@@ -291,6 +291,9 @@ void PolaWektoroweFrm::CreateGUIControls()
 	////GUI Items Creation End
 	//Fullscreen tu instrukcja :http://docs.wxwidgets.org/trunk/toplevel_8h.html#afccd240f973cf154952fb917c9209719a4625145320cb6292879930fddaec9846
 	//wxFrame::ShowFullScreen(true,wxFULLSCREEN_NOTOOLBAR );
+	/*
+	Aktywacja scrollbarów.
+	*/
 	WxScrollBar1->SetScrollbar(0, 1, 361, 1,true);
 	WxScrollBar1->Enable(true);
 	WxScrollBar2->SetScrollbar(0, 1, 361, 1,true);
@@ -395,64 +398,85 @@ void  PolaWektoroweFrm::Draw(){
     if(ZakresX<ZakresY)Matrix4::endZ=ZakresX;
     else Matrix4::endZ=ZakresY;
     
-    for(double i=StartX;i<ZakresX;i+=KrokX){
-        for(double j=StartY;j<ZakresY;j+=KrokY){
-            for(double k=StartZ; k<ZakresZ;k+=KrokZ){
-                if(!WxCheckBox3->GetValue() || ((wxAtod(WxEdit13->GetValue())*i+wxAtod(WxEdit14->GetValue())*j+wxAtod(WxEdit15->GetValue())*k+wxAtod(WxEdit16->GetValue()))>0)){
+    
+    //GLOWNE RYSOWANIE WEKTOROW
+    for(double i=StartX;i<ZakresX;i+=KrokX){ //zakres x i krok x
+        for(double j=StartY;j<ZakresY;j+=KrokY){ //zakres y i krok y
+            for(double k=StartZ; k<ZakresZ;k+=KrokZ){ //zakres z i krok z
+                //jesli nie zaznaczona jest plaszczyzna lub wezel miesci sie w plaszczyznie nieodcietej
+                if(!WxCheckBox3->GetValue() || ((wxAtod(WxEdit13->GetValue())*i+wxAtod(WxEdit14->GetValue())*j+wxAtod(WxEdit15->GetValue())*k+wxAtod(WxEdit16->GetValue()))>0)){ 
                     //takie dziwne rzeczy porobione ¿eby wyœwietla³o w jakims normalnym po³o¿eniu, tzn to dodawanie i mno¿enie
                     //vecTab[k][l][m].setStart(double (k*50),double (l*50)+200,double(m));
                     //jakas tam funkcja, ale efekt jest :D
                     //vecTab[k][l][m].setEnd(double ((k*50))*1.3,double (((l+1)*50)+170)*0.8,double(m));
                     //boomLine(dc,Vector3d(k*5,l*5+20,m,k*5*1.3,(((l+1)*5)+17)*0.8,m),k*25,l*25,m*25,mat);
+                    //FUNKCJA 1
                     if(WxToggleButton1->GetValue()){
+                        //AUTOSKALA
                         if(WxCheckBox1->GetValue()){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())*i,KrokX),trim(j,wxAtod(WxEdit11->GetValue())*j,KrokY),trim(k,(wxAtod(WxEdit12->GetValue())*i),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
+                            //KOLOR
                             if(WxCheckBox2->GetValue()){
                                 //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),0,0,255,mat);
                                 temp_len = Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).Length();
                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).normalize(),temp_len,100.0,mat);
                             }else{
+                                //NORMALNE RYSOWANIE
                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*i,wxAtod(WxEdit11->GetValue())*j,(wxAtod(WxEdit12->GetValue())*i)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                             }
                         }
                     }
                     
+                    //FUNKCJA 2
                     if(WxToggleButton2->GetValue()){
+                        //AUTOSKALA
                         if(WxCheckBox1->GetValue()){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())*sin(i),KrokX),trim(j,wxAtod(WxEdit11->GetValue())*cos(j),KrokY),trim(k,(wxAtod(WxEdit12->GetValue())*k),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
+                            //KOLOR
                             if(WxCheckBox2->GetValue()){
                                  temp_len=Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).Length();
                                  boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize(),temp_len,100.0,mat);
                                  //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).normalize(),0,0,255,mat);
                             }else{
+                                //NORMALNE RYSOWANIE
                                  boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*sin(i),wxAtod(WxEdit11->GetValue())*cos(j),(wxAtod(WxEdit12->GetValue())*k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
                             }
                         }
                     }
+                    
+                    //FUNKCJA 3
                     if(WxToggleButton3->GetValue()){
+                        //AUTOSKALA
                         if(WxCheckBox1->GetValue()){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())*k,KrokX),trim(j,wxAtod(WxEdit11->GetValue())*i,KrokY),trim(k,(wxAtod(WxEdit12->GetValue())*j),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
+                            //KOLOR
                             if(WxCheckBox2->GetValue()){    
                                 temp_len=Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).Length();
                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).normalize(),temp_len,100.0,mat);
                                 //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).normalize(),i*25,j*25,k*25,mat);
                             }else{
+                                //NORMALNE RYSOWANIE
                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())*k,wxAtod(WxEdit11->GetValue())*i,(wxAtod(WxEdit12->GetValue())*j)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
                             } 
                         }   
                     }
+                    
+                    //FUNKCJA 4
                     if(WxToggleButton4->GetValue()){
+                        //AUTOSKALA
                         if(WxCheckBox1->GetValue()){
                             boomLine(dc,Vector3d(i,j,k,trim(i,wxAtod(WxEdit10->GetValue())+i,KrokX),trim(j,wxAtod(WxEdit11->GetValue())+j,KrokY),trim(k,(wxAtod(WxEdit12->GetValue())+k),KrokZ)).arrowLength(Matrix4::arrowLen),255,0,0,mat);
                         }else{
+                            //KOLOR
                             if(WxCheckBox2->GetValue()){ 
                                 temp_len=    Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).Length();
                                 boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).normalize(),temp_len,100.0,mat);
                                 //boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).normalize(),i*25,j*25,k*25,mat);
                             }else{
+                                //NORMALNE RYSOWANIE
                                  boomLine(dc,Vector3d(i,j,k,wxAtod(WxEdit10->GetValue())+i,wxAtod(WxEdit11->GetValue())+j,(wxAtod(WxEdit12->GetValue())+k)).arrowLength(Matrix4::arrowLen),i*25,j*25,k*25,mat);
                             } 
                         }   
@@ -479,7 +503,7 @@ void PolaWektoroweFrm::PicPlaceUpdateUI(wxUpdateUIEvent& event)
 
 
 /*
- * WxToggleButton1Click
+ * WxToggleButton1Click - zmiana funkcji na 1
  */
 void PolaWektoroweFrm::WxToggleButton1Click(wxCommandEvent& event)
 {
@@ -492,7 +516,7 @@ void PolaWektoroweFrm::WxToggleButton1Click(wxCommandEvent& event)
 
 
 /*
- * WxToggleButton2Click
+ * WxToggleButton2Click - zmiana funkcji na 2
  */
 void PolaWektoroweFrm::WxToggleButton2Click(wxCommandEvent& event)
 {
@@ -505,7 +529,7 @@ void PolaWektoroweFrm::WxToggleButton2Click(wxCommandEvent& event)
 
 
 /*
- * WxToggleButton3Click
+ * WxToggleButton3Click - zmiana funkcji na 3
  */
 void PolaWektoroweFrm::WxToggleButton3Click(wxCommandEvent& event)
 {
@@ -518,7 +542,7 @@ void PolaWektoroweFrm::WxToggleButton3Click(wxCommandEvent& event)
 
 
 /*
- * WxToggleButton4Click
+ * WxToggleButton4Click - zmiana funkcji na 4
  */
 void PolaWektoroweFrm::WxToggleButton4Click(wxCommandEvent& event)
 {
@@ -541,7 +565,7 @@ void PolaWektoroweFrm::WxEdit14Updated(wxCommandEvent& event)
 }
 
 /*
- * WxScrollBar1Scroll
+ * WxScrollBar1Scroll -- labele do scrolla1
  */
 void PolaWektoroweFrm::WxScrollBar1Scroll(wxScrollEvent& event)
 {
@@ -552,7 +576,7 @@ void PolaWektoroweFrm::WxScrollBar1Scroll(wxScrollEvent& event)
 }
 
 /*
- * WxScrollBar2Scroll
+ * WxScrollBar2Scroll -- labele do scrolla2
  */
 void PolaWektoroweFrm::WxScrollBar2Scroll(wxScrollEvent& event)
 {
@@ -563,7 +587,7 @@ void PolaWektoroweFrm::WxScrollBar2Scroll(wxScrollEvent& event)
 }
 
 /*
- * WxScrollBar3Scroll
+ * WxScrollBar3Scroll -- labele do scrolla 3
  */
 void PolaWektoroweFrm::WxScrollBar3Scroll(wxScrollEvent& event)
 {
@@ -574,7 +598,7 @@ void PolaWektoroweFrm::WxScrollBar3Scroll(wxScrollEvent& event)
 }
 
 /*
- * WxScrollBar4Scroll
+ * WxScrollBar4Scroll -- labele do scrolla 4
  */
 void PolaWektoroweFrm::WxScrollBar4Scroll(wxScrollEvent& event)
 {
@@ -604,7 +628,7 @@ wxImage PolaWektoroweFrm::getImage() {
 
 
 /*
- * WxButton1Click
+ * WxButton1Click - wywolanie okna zapisania i funkcji zapisu do pliku
  */
 void PolaWektoroweFrm::WxButton1Click(wxCommandEvent& event)
 {
@@ -632,7 +656,7 @@ void PolaWektoroweFrm::Aux2(wxMouseEvent& event){
 
 
 /*
- * WxCheckBox1Click
+ * WxCheckBox1Click -- odklikniecie guzika 2
  */
 void PolaWektoroweFrm::WxCheckBox1Click(wxCommandEvent& event)
 {
@@ -640,7 +664,7 @@ void PolaWektoroweFrm::WxCheckBox1Click(wxCommandEvent& event)
 }
 
 /*
- * WxCheckBox2Click
+ * WxCheckBox2Click - odklikniecie guzika 1
  */
 void PolaWektoroweFrm::WxCheckBox2Click(wxCommandEvent& event)
 {
