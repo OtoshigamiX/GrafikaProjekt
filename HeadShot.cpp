@@ -31,34 +31,9 @@ Vector3d::Vector3d(double tab[3]){
 bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     static const double d = 0.5;
     Matrix4 pr,tmp;
-    // ze strony http://wazniak.mimuw.edu.pl/index.php?title=GKIW_Modu%C5%82_5_-_Reprezentacja_przestrzeni_tr%C3%B3jwymiarowej_na_p%C5%82aszczy%C5%BAnie
-    // nie dzia³a jak powinna >.<
-  /*  pr.data[0][0]=1;
-    pr.data[1][1]=1;
-    pr.data[2][2]=1.0/(1.0-d);
-    pr.data[2][3]=-d/(1.0-d);
-    pr.data[3][3]=0;
-    pr.data[3][2]=1;
     
-    mat=pr*mat;
-    *this=mat*(*this);
-    
-    this->set(0,(this->getPX())/this->get(3));
-    this->set(1,(this->getPY())/this->get(3));
-    this->set(2,(this->get(3)-d)/(this->get(3)*(1.0-d)));
-    this->set(3,1);
-    this->set(4,(this->getKX())/this->get(7));
-    this->set(5,(this->getKY())/this->get(7));
-    this->set(6,(this->get(3)-d)/(this->get(7)*(1.0-d)));
-    this->set(7,1);*/
-    
-    //z jakiejs smiesznej strony, tyle, ¿e traktuje punkt 0,0 jako srodek ekranu, zreszta to z wykladu tak samo
-    //Vector3d tmp1(this->getPX(),this->getPY(),this->getPZ(),this->get(3),this->getKX(),this->getKY(),this->getKZ(),this->get(7));
     int w,h;
     double atmp[8];
-    //this->set(4,this->get(4)*Matrix4::arrowLen);
-    //this->set(5,this->get(5)*Matrix4::arrowLen);
-    //this->set(6,this->get(6)*Matrix4::arrowLen);
     getArrowhead();
     //przemono¿enie punktów przez dotychczasow¹ macierz przekszta³cen
     *this=mat*(*this);
@@ -90,16 +65,6 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
       arrowh[5]=atmp[5];
       arrowh[6]=atmp[6];
       arrowh[7]=atmp[7];
-    
-    //arrowh[2]=0.7+ arrowh[2]/ (Matrix4::endZ*1.5);
-    //arrowh[6]=0.7+ arrowh[6]/ (Matrix4::endZ*1.5);
-    //mat = scale(w/4, h/4, 1, mat);
-    //zrobiony translate podwojny bo rzutowanie sie odbywa tak jakby widz by³ w punkcie 0,0,0.5, a my chcemy w œrodku ekranu
-    //ponizsze u¿ywa globalnego width i height zapisanego w klasie Matrix4
-    /*mat=translate(-mat.getWinW()/2,-mat.getWinH()/2,0,mat);
-    mat=pr*mat;
-    mat=translate(mat.getWinW()/2,mat.getWinH()/2,0,mat);*/
-
 
 	//mno¿enie macierzy jednostkowej przez macierz projekcji
    
@@ -161,11 +126,6 @@ bool Vector3d::get2D(wxDC &dc,double tab[4],double atab[4],Matrix4 &mat){
     atab[1]=arrowh[1];
     atab[2]=arrowh[4];
     atab[3]=arrowh[5];
-    //z wykladu
-    /*tab[0]=(this->getPX()*d)/this->getPZ();
-    tab[1]=(this->getPY()*d)/this->getPZ();
-    tab[2]=(this->getKX()*d)/this->getKZ();
-    tab[3]=(this->getKY()*d)/this->getKZ();*/
 
   return true;
 }
@@ -238,7 +198,6 @@ double Vector3d::get(int i) const{
 }
 
 Vector3d Vector3d::normalize(){
-    //Vector3d vec;
     double len = this->Length();
     double start[3];
     double end[3];
@@ -246,8 +205,6 @@ Vector3d Vector3d::normalize(){
     this->getEnd(end);
     if(len != 0){
         Vector3d vec(start[0],start[1],start[2],((end[0]-start[0])/len)+start[0],((end[1]-start[1])/len)+start[1],((end[2]-start[2])/len)+start[2]);
-		//vec.setStart(start[0],start[1],start[2]);
-	//	vec.setEnd(end[0]/len,end[1]/len,end[2]/len);
 	   return vec;
 	}
 	return Vector3d();
@@ -255,15 +212,12 @@ Vector3d Vector3d::normalize(){
 }
 
 Vector3d Vector3d::arrowLength(double arrowLen){
-    //Vector3d vec;
     double start[3];
     double end[3];
     this->getStart(start);
     this->getEnd(end);
     if(arrowLen != 0){
         Vector3d vec(start[0],start[1],start[2],((end[0]-start[0])*arrowLen)+start[0],((end[1]-start[1])*arrowLen)+start[1],((end[2]-start[2])*arrowLen)+start[2]);
-		//vec.setStart(start[0],start[1],start[2]);
-	//	vec.setEnd(end[0]/len,end[1]/len,end[2]/len);
 	   return vec;
 	}
 	return Vector3d();

@@ -21,9 +21,6 @@
 #include <wx/colour.h> 
 /**
 **klasa reprezentujacd wektor 3D doubli
-**
-**    !!!WARNING!!! pamietac, ze jak bedziemy robic wektory jednostkowe to przemnazac trzeba bedzie tylko koniec bez poczatku wiec trzeba beczie dodac funkcje mnozaca tylko koniec wektora
-**    TODO: Nakladka na wxWidgets z rysowaniem zeby nie trzeba bylo wklepywac wszystkich koordynantow, tylko zeby wystarczylo wklepac : Line(vec1, color blue);
 **/
 
 
@@ -93,7 +90,6 @@ private:
 
 /**
 **Klasa zapozyczona z laboratoriów dr Jacka Tarasiuka http://home.agh.edu.pl/~tarasiuk/dydaktyka/
-**
 **/
 class Matrix4{
 public:

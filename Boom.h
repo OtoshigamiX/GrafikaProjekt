@@ -24,9 +24,6 @@ static double wxAtod(wxString a){
         double value;
         a.ToDouble(&value);
         return value;
-    /*std::string str= a.ToStdString();
-    double n = atof(str.c_str());
-    return n;*/
 }
 
 //Funkcja do przyciecia, bazuje na wartosciach progowych, robi wedlug tego co zawarte w pdfie
@@ -44,8 +41,6 @@ static void boomLine(wxDC &dc,Vector3d vec, int R, int G, int B,Matrix4 &mat){
          dc.DrawLine(tmp[2],tmp[3],tmp[2],tmp[3]+2);
          dc.DrawLine(tmp[2],tmp[3],tmp[2]-2,tmp[3]);
          dc.DrawLine(tmp[2],tmp[3],tmp[2],tmp[3]-2);
-        // dc.DrawLine(atmp[0],atmp[1],tmp[2],tmp[3]);
-        //dc.DrawLine(atmp[2],atmp[3],tmp[2],tmp[3]);
      }
 }
 //funkcja rysuj¹ca wektory o odpowiednim kolorze dla funkcji zaznaczj¹cej d³ugoœæ wektorów za pomoc¹ kolorów
@@ -61,8 +56,6 @@ static void boomLine(wxDC &dc,Vector3d vec, double col,double max,Matrix4 &mat){
         dc.SetPen(wxPen(RGB(255,(2-force*2)*255,0),1,wxPENSTYLE_SOLID));
             }
          dc.DrawLine(tmp[0],tmp[1],tmp[2],tmp[3]);
-        // dc.DrawLine(atmp[0],atmp[1],tmp[2],tmp[3]);
-        //dc.DrawLine(atmp[2],atmp[3],tmp[2],tmp[3]);
         dc.DrawLine(tmp[2],tmp[3],tmp[2]+2,tmp[3]);
          dc.DrawLine(tmp[2],tmp[3],tmp[2],tmp[3]+2);
          dc.DrawLine(tmp[2],tmp[3],tmp[2]-2,tmp[3]);
